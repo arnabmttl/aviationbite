@@ -317,6 +317,8 @@ Route::get('/beta', [FrontendController::class, 'home'])->name('home');
 // Route::get('/courses', [FrontendController::class, 'courses'])->name('courses');
 // Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
 // Route::get('/contact-us', [FrontendController::class, 'contactUs'])->name('contact.us');
+Route::get('/privacy-policy', [FrontendController::class, 'privacy'])->name('privacy');
+Route::get('/terms-conditions', [FrontendController::class, 'terms'])->name('terms');
 Route::get('/course/{course:slug}', [FrontendController::class, 'courseBySlug'])->name('single.course');
 Route::post('/enquiry', [FrontendController::class, 'enquiry']);
 

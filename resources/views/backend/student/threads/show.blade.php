@@ -32,6 +32,14 @@
     .answerForum .forumHead .cardFooter {
         margin-bottom: 15px;
     }
+    .copy-link {
+        max-width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 100%;
+    }
 </style>
     <!-- BEGIN: Show -->
     <section id="cbz-thread-show" class="forumCont answerForum faqsTabsCont pt-5 pb-5">
@@ -132,12 +140,13 @@
                             @endif
                         @else
                             <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"><button><i class="fas fa-bell"></i> Subscribe</button></a>                            
-                            <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a>
+                            
                         @endauth
-                            <div id="messageCopyLink"></div>
                             <div class="share_btn">
                                 <a href="javascript:void(0)" class="share_btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></a>
                                 <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                    <a href="javascript:void(0)" class="btn btn-primary copy-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a>
+                                    <div id="messageCopyLink"></div>
                                     <!-- <a class="a2a_button_email"></a> -->
                                     <a class="a2a_button_facebook"></a>
                                     <!-- <a class="a2a_button_sms"></a> -->

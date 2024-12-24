@@ -39,23 +39,6 @@ class FrontendController extends Controller
     //         return abort(404);
     // }
 
-    /**
-     * undocumented function summary
-     *
-     * Undocumented function long description
-     *
-     * @param Type $var Description
-     * @return type
-     * @throws conditon
-     **/
-    public function __construct()
-    {
-        // $currentRouteName =  \Route::currentRouteName();
-        // echo $currentRouteName;
-
-        
-    }
-
     public function home(Request $request)
     {
         $banners = Banner::all();
@@ -71,6 +54,16 @@ class FrontendController extends Controller
     public function aboutUs()
     {
         return view('frontend.about-us');
+    }
+
+    public function privacy()
+    {
+        return view('frontend.privacy');
+    }
+
+    public function terms()
+    {
+        return view('frontend.terms');
     }
 
     /**

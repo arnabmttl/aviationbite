@@ -4,6 +4,11 @@
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('frontend/images/logo.png') }}">  
         </a>
+
+        @auth
+            <a href="" class="ms-auto me-2 me-sm-0 ms-lg-3 order-lg-4" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i></a>
+            @else
+            @endauth
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>
@@ -36,7 +41,6 @@
             </ul>
             <div class="d-flex">
                 @auth
-                    <a href="" class="loginBtn" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i></a>
                     <div class="login-head mont dropdown" id="loginDropdown">
                         <div class="dropdown-toggle" data-bs-toggle="dropdown" role="button" id="navbarDropdown">
                             <span>My Account</span>
@@ -54,9 +58,9 @@
                 @else
                     <a href="" class="loginBtn" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="far fa-user-circle"></i> Login / Register</a>
                 @endauth
-                
             </div>
         </div>
+        
     </div>
 </nav>
 

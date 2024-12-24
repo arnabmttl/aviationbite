@@ -52,8 +52,8 @@ $(document).ready(function() {
         dots: false,
         responsive: {
             0: {
-                items: 1,
-                stagePadding: 70
+                items: 2,
+                stagePadding: 0
             },
             600: {
                 items: 3
