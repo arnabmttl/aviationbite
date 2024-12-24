@@ -24,6 +24,7 @@ class QuestionResource extends JsonResource
             'title' => $this->title,
             'explanation' => $this->explanation,
             'image' => $this->question_image ? $this->question_image->path : null,
+            'practice_test_comment' => $this->practice_test_comment,
             'options' => QuestionOptionResource::collection($this->options)
         ];
     }

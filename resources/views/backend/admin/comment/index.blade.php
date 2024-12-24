@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Banner')
+@section('title', 'Reported Comments')
 
 @section('content')
 <div class="content-wrapper">
@@ -8,7 +8,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Banner</h2>
+                    <h2 class="content-header-title float-left mb-0">Reported Comments</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -17,25 +17,13 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Banner
+                                Reported Comments (during practice test)
                             </li>
                         </ol>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <div class="form-group breadcrumb-right">
-                <div class="dropdown">
-                    <a href="{{ route('banner.create') }}">
-                        <button class="btn btn-primary" type="button">
-                            <i data-feather="plus"></i>
-                            Add Banner
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
+        </div>        
     </div>
     <div class="content-body">
         <!-- Hoverable rows start -->
@@ -46,19 +34,23 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Description</th>
+                                    <th>#</th>
+                                    <th>Question</th>
+                                    <th>Comment</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($data as $index => $item)
                                 <tr>
+                                    <th scope="row">
+                                        {{ $index + $data->firstItem() }}
+                                    </th>
                                     <td>
-                                        {{ $item->title }}
+                                        {{$item->question->title}}
                                     </td>
                                     <td>
-                                        {{ $item->description }}
+                                        {{ $item->comment }}
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -66,20 +58,17 @@
                                                 <i data-feather="more-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('banner.edit', $item->id) }}">
-                                                    <i data-feather="edit-2" class="mr-50"></i>
-                                                    <span>Edit</span>
-                                                </a>
+                                               
                                             
                                                 <a 
                                                     class="dropdown-item"
-                                                    href="{{ route('banner.destroy', $item->id) }}"
-                                                    onclick="event.preventDefault();document.getElementById('banner-delete-form-'+{{ $item->id }}).submit();"
+                                                    href="{{ route('comment.destroy', $item->id) }}"
+                                                    onclick="event.preventDefault();document.getElementById('comment-delete-form-'+{{ $item->id }}).submit();"
                                                 >
                                                     <i data-feather="trash" class="mr-50"></i>
                                                     <span>Delete</span>
                                                 </a>
-                                                <form id="banner-delete-form-{{ $item->id }}" action="{{ route('banner.destroy', $item->id) }}" method="POST" style="display: none;">
+                                                <form id="comment-delete-form-{{ $item->id }}" action="{{ route('comment.destroy', $item->id) }}" method="POST" style="display: none;">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="delete" />
                                                 </form>

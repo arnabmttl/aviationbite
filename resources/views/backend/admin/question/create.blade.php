@@ -281,6 +281,28 @@
                                                         @enderror
                                                     </div>
 
+
+                                                    <!-- Practice Test Comment -->
+                                                    <div class="col-12 form-label-group">
+                                                        {!!
+                                                            Form::textarea(
+                                                                'practice_test_comment',
+                                                                null,
+                                                                [
+                                                                    'id' => 'practice_test_comment',
+                                                                    'class' => 'form-control '.($errors->has('practice_test_comment') ? 'is-invalid':''),
+                                                                    'placeholder' => 'Practrice Test Comment',
+                                                                    'rows' => 2
+                                                                ]
+                                                            )
+                                                        !!}
+                                                        {!! Form::label('practice_test_comment', 'Practrice Test Comment') !!}
+
+                                                        @error('practice_test_comment')
+                                                            <x-validation-error-message :message="$message" />
+                                                        @enderror
+                                                    </div>
+
                                                     <!-- Add Option -->
                                                     <div class="col-6 form-label-group">
                                                         <a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" v-on:click="addOption()">Add Option</a>
@@ -409,7 +431,7 @@
                     var selectedCourseId = (e.target.value)
                     
                     axios.post(
-                        '{{env('APP_URL')}}api/get-chapters-by-course-id', 
+                        "{{ route('get-chapters-by-course-id') }}", 
                     {
                         'course_id': selectedCourseId
                     }).then((response) => {

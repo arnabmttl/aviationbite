@@ -22,7 +22,8 @@ class Question extends Model
         'title',
         'description',
         'previous_years',
-        'explanation'
+        'explanation',
+        'practice_test_comment'
     ];
 
     /**

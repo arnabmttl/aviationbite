@@ -334,6 +334,19 @@
             alert('Right-click is disabled!');
         });
 
+        $('.tabs li').click(function() {
+            var inputValue = $(this).attr("data-tab-id");
+            var targetBox = $("#" + inputValue);
+
+            // Remove active class from all tabs and add to the clicked tab
+            $('.tabs li').removeClass('active');
+            $(this).addClass('active');
+
+            // Remove active class from all content boxes and add to the target box
+            $(".content").not(targetBox).removeClass('active');
+            $(targetBox).addClass('active');
+        });
+
 
         
     </script>

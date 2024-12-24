@@ -166,4 +166,73 @@ class UsersController extends Controller
 
         
     }
+
+    /*
+    ** All User CSV Dwonlaod 
+    */
+
+    public function allUserDetailsDownloadCsv(Request $request){
+        $data = User::where('role_id', '!=', 1)->get();
+        $filename = 'users.csv';
+        $basicHeaders = array('Name', 'Username', 'Role',  'Email', 'Phone', 'Registered At','Dob', 'Gender', 'Designation', 'Address', 'Goal', 'Newsletter');
+        $dataArr = array();
+        foreach($data as $user){
+            $basicColumns = array(
+                $user->name,                
+                $user->username,                
+                $user->role->name,                
+                $user->email,                
+                $user->phone_number,            
+                date('Y-m-d H:i a', strtotime($user->created_at))
+            );
+            $other_details = $user->other_details;
+            if(!empty($other_details)){
+                $allValues = array();
+                $otherDataVal = array();
+                foreach($other_details as $key => $value){
+                    $allValues[] = $value;
+                }
+                $otherDataVal = array(
+                    $allValues[0],
+                    $allValues[1],
+                    $allValues[2],
+                    $allValues[3],
+                    $allValues[4],
+                    $allValues[5],
+                );
+                
+                $basicColumns =  array_merge($basicColumns, $otherDataVal);               
+    
+            } 
+
+            // echo '<pre>'; print_r($basicColumns);
+
+            $dataArr[] = $basicColumns;
+
+        }
+
+        
+
+        // die;
+
+        
+        // Set PHP headers for CSV output.
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename='.$filename);
+        
+        // Clean up output buffer before writing anything to CSV file.
+        ob_end_clean();
+        // Create a file pointer with PHP.
+        $output = fopen( 'php://output', 'w' );
+        // Write headers to CSV file.
+        fputcsv( $output, $basicHeaders );
+        // // Loop through the prepared data to output it to CSV file.
+        foreach( $dataArr as $data_item ){
+            fputcsv( $output, $data_item );
+        }
+
+        // Close the file pointer with PHP with the updated output.
+        fclose( $output );
+        exit;
+    }
 }

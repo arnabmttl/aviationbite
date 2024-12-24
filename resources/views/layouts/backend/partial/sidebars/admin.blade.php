@@ -76,6 +76,13 @@
                 </a>
             </li>
 
+            <li class="{{ \Request::is('backend/comment') || \Request::is('backend/comment/*') ? 'active' : '' }} nav-item">
+                <a class="d-flex align-items-center" href="{{ route('comment.index') }}">
+                    <i data-feather="help-circle"></i>
+                    <span class="menu-title text-truncate" data-i18n="Reported Comments">Reported Comments</span>
+                </a>
+            </li>
+
             <li class="{{ \Request::is('backend/discount') || \Request::is('backend/discount/*') ? 'active' : '' }} nav-item">
                 <a class="d-flex align-items-center" href="{{ route('discount.index') }}">
                     <i data-feather="filter"></i>

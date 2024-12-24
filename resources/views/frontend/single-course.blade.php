@@ -22,7 +22,8 @@
                             <span><img src="{{ asset('frontend/images/chapters.svg') }}">{{ $course->chapters->count() }} Chapters</span>
                         </p>
                         {!! $course->description !!}
-
+                        <br/>
+                        <br/>
                     @auth
                         @if (auth()->user()->getFirstUserCourseByCourseId($course->id))
                             <a href="{{ route('practice.test.create', $course->slug) }}">
@@ -148,7 +149,7 @@
                         @endauth --}}
                         </p>
                         <p>
-                            {!! $question->explanation !!}
+                            <!-- {!! $question->explanation !!} -->
                         </p>
                     </div>
                     <div class="col-md-6 col-6">

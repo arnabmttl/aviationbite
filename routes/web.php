@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\Backend\TaxesController;
 use App\Http\Controllers\Backend\OrdersController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\DiscountsController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Frontend\TakeTestsController;
+use App\Http\Controllers\Backend\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,11 @@ use App\Http\Controllers\Frontend\TakeTestsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/get-id-encrypted', function(Request $request){
+    $id = $request->id;
+    return \Crypt::encrypt($id);
+});
 
 /**
  * Dashboard route for the application.
@@ -152,6 +159,13 @@ Route::prefix('/backend')->group(function () {
     Route::post('/banner/update/{banner}', [BannerController::class, 'update'])->name('banner.update');
     Route::delete('/banner/delete/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
 
+
+    /**
+     * Comment (Reported)
+     */
+    Route::get('/comment', [CommentController::class, 'index'])->name('comment.index');
+    Route::delete('/comment/delete/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+
     /**
      * Section views related routes.
      */
@@ -209,6 +223,7 @@ Route::prefix('/backend')->group(function () {
     Route::post('/search-users', [UsersController::class, 'search']);
     Route::get('/user/{user}/change-status', [UsersController::class, 'changeStatus'])->name('user.change.status');
     Route::get('/userDetailsDownloadCsv', [UsersController::class, 'userDetailsDownloadCsv'])->name('userDetailsDownloadCsv');
+    Route::get('/allUserDetailsDownloadCsv', [UsersController::class, 'allUserDetailsDownloadCsv'])->name('allUserDetailsDownloadCsv');
 
     /**
      * Discount related routes.
@@ -223,24 +238,30 @@ Route::prefix('/api')->group(function () {
     /**
      * Check username, phone number and email related routes.
      */
-    Route::post('check-username', [APIController::class, 'checkUsername']);
-    Route::post('check-phone-number', [APIController::class, 'checkPhoneNumber']);
-    Route::post('check-email', [APIController::class, 'checkEmail']);
+    Route::post('check-username', [APIController::class, 'checkUsername'])->name('check-username');
+    Route::post('check-phone-number', [APIController::class, 'checkPhoneNumber'])->name('check-phone-number');
+    Route::post('check-email', [APIController::class, 'checkEmail'])->name('check-email');
 
     /**
      * Chapters by course route.
      */
-    Route::post('get-chapters-by-course-id', [APIController::class, 'getChaptersByCourseId']);
+    Route::post('get-chapters-by-course-id', [APIController::class, 'getChaptersByCourseId'])->name('get-chapters-by-course-id');
 
     /**
      * Questions by practice test route.
      */
-    Route::post('get-questions-by-practice-test-id', [APIController::class, 'getQuestionsByPracticeTestId']);
+    Route::post('get-questions-by-practice-test-id', [APIController::class, 'getQuestionsByPracticeTestId'])->name('get-questions-by-practice-test-id');
     
     /**
      * Update practice test question route.
      */
-    Route::post('update-practice-test-question-by-id', [APIController::class, 'updatePracticeTestQuestionById']);
+    Route::post('update-practice-test-question-by-id', [APIController::class, 'updatePracticeTestQuestionById'])->name('update-practice-test-question-by-id');
+
+    /**
+     * Save notes for practice test
+     */
+    Route::post('save-note-practice-test', [APIController::class, 'saveNotePracticeTest'])->name('save-note-practice-test');
+    Route::post('report-comment', [APIController::class, 'report_comment'])->name('report-comment');
 
 
 
@@ -253,39 +274,39 @@ Route::prefix('/api')->group(function () {
     /**
      * OTP related routes.
      */
-    Route::post('send-otp', [APIController::class, 'sendOTP']);
-    Route::post('verify-otp', [APIController::class, 'verifyOTP']);
+    Route::post('send-otp', [APIController::class, 'sendOTP'])->name('send-otp');
+    Route::post('verify-otp', [APIController::class, 'verifyOTP'])->name('verify-otp');
 
     /**
      * Update user route.
      */
-    Route::post('update-user', [APIController::class, 'updateUser']);
+    Route::post('update-user', [APIController::class, 'updateUser'])->name('update-user');
 
     /**
      * Total questions by the chapters, difficulty and type route.
      */
-    Route::post('get-total-questions-by-chapters-difficulty-and-type', [APIController::class, 'getTotalQuestionsByChaptersDifficultyAndType']);
+    Route::post('get-total-questions-by-chapters-difficulty-and-type', [APIController::class, 'getTotalQuestionsByChaptersDifficultyAndType'])->name('get-total-questions-by-chapters-difficulty-and-type');
 
     /**
      * Comments related routes.
      */
-    Route::post('get-comments-by-question-id', [APIController::class, 'getCommentsByQuestionId']);
-    Route::post('save-comment-by-practice-test-question-id', [APIController::class, 'saveCommentByPracticeTestQuestionId']);
+    Route::post('get-comments-by-question-id', [APIController::class, 'getCommentsByQuestionId'])->name('get-comments-by-question-id');
+    Route::post('save-comment-by-practice-test-question-id', [APIController::class, 'saveCommentByPracticeTestQuestionId'])->name('save-comment-by-practice-test-question-id');
 
     /**
      * Questions by user test route.
      */
-    Route::post('get-questions-by-user-test-id', [APIController::class, 'getQuestionsByUserTestId']);
+    Route::post('get-questions-by-user-test-id', [APIController::class, 'getQuestionsByUserTestId'])->name('get-questions-by-user-test-id');
 
     /**
      * Update user test question route.
      */
-    Route::post('update-user-test-question-by-id', [APIController::class, 'updateUserTestQuestionById']);
+    Route::post('update-user-test-question-by-id', [APIController::class, 'updateUserTestQuestionById'])->name('update-user-test-question-by-id');
 
     /**
      * Check discount code related routes.
      */
-    Route::post('check-discount-code', [APIController::class, 'checkDiscountCode']);
+    Route::post('check-discount-code', [APIController::class, 'checkDiscountCode'])->name('check-discount-code');
 });
 
 /**

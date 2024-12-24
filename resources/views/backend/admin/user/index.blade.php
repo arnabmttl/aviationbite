@@ -73,6 +73,9 @@
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Search</button>
                                                 </div>
+                                                <div class="col-12">
+                                                    <a href="{{ route('allUserDetailsDownloadCsv') }}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Downlaod All User CSV</a>
+                                                </div>
                                             </div>
                                         </div>
                                     {{ Form::close() }}

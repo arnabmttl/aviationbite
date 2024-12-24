@@ -30,6 +30,14 @@
         <script src="{{ asset('backend/js/axios.min.js') }}"></script>
         <script src="{{ asset('backend/js/moment.min.js') }}"></script>
 
+         <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+         <!-- Toastr CSS -->
+         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+         <!-- Toastr JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
         <style>
          .dropdown-menu.active {
             display: block;
@@ -90,11 +98,23 @@
         @include('layouts.frontend.partial.modals.auth')
         @include('layouts.frontend.partial.modals.notification')
 
-        <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+        
         <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('frontend/js/main.js') }}"></script>
 
+        <script>
+            $(window).on('load', function() {
+               
+               @if(session('toastr'))
+                  toastr.info('{{ session('toastr') }}');
+               @endif
+               
+            })
+
+        </script>
+
+        
 
         <!-- VUE Components -->
         @include('layouts.frontend.partial.vue.components')

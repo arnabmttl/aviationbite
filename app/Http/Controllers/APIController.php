@@ -40,6 +40,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\TakeTest;
 use App\Models\TakeTestQuestion;
 use App\Models\QuestionOption;
+use App\Models\PracticeTest;
+use App\Models\Comment;
 
 // Exception
 use Exception;
@@ -458,5 +460,36 @@ class APIController extends Controller
             'is_correct' => $is_correct,
             'time_taken' => $time_taken
         ]);
+    }
+
+    /**
+     * 
+     **/
+    public function saveNotePracticeTest(Request $request)
+    {
+        // dd($request->all());
+
+        PracticeTest::where('id', $request->id)->update([
+            'note' => $request->note
+        ]);
+
+        return response()->json([
+            'status' => true
+        ]);
+
+
+    }
+
+    /**
+     * Report Comment On Practice Test
+     **/
+    public function report_comment(Request $request)
+    {
+        $id = $request->id;
+        Comment::where('id', $id)->update([
+            'is_reported' => 1
+        ]);
+        $data = array('status' => true);
+        return response()->json($data, 200);
     }
 }

@@ -33,9 +33,9 @@ class ThreadsController extends Controller
     {
         if (request()->has('subscribed') && auth()->check()) {
             if ($channel->exists) {
-                $threads = request()->user()->subscribedThreads()->where('channel_id', $channel->id)->paginate(20);
+                $threads = request()->user()->subscribedThreads()->where('channel_id', $channel->id)->paginate(5);
             } else {
-                $threads = request()->user()->subscribedThreads()->paginate(20);
+                $threads = request()->user()->subscribedThreads()->paginate(5);
             }
         } else {
             $threads = $this->getThreads($channel, $filters);
@@ -96,7 +96,7 @@ class ThreadsController extends Controller
         ]);
 
         $search = $request->search;
-        $threads = Thread::where('title', 'like', '%'.$search.'%')->paginate(20);
+        $threads = Thread::where('title', 'like', '%'.$search.'%')->paginate(5);
 
         return view('backend.student.threads.index')->with(['threads' => $threads, 'filters' => $filters, 'channel' => $channel, 'search' => $search]);
     }
@@ -182,6 +182,6 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
-        return $threads->paginate(20);
+        return $threads->paginate(5);
     }
 }

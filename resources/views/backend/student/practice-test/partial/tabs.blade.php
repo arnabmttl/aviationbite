@@ -10,6 +10,9 @@
             <li data-tab-id='tab5'><i class="fas fa-pencil-alt"></i> Explanation</li>
         </div>
         <div class="item">
+            <li data-tab-id='tab7'><i class="fas fa-pencil-alt"></i> My Note</li>
+        </div>
+        <div class="item">
             <li data-tab-id='tab6'><i class="far fa-compass"></i> FLT. comp</li>
         </div>
     </ul>
@@ -45,16 +48,40 @@
                         </div>
                         <button v-on:click="saveCommentByQuestionId()" class="btn btn-primary" style="margin-bottom: 5px;">Comment</button>
                     </div>
-                </div>
+                </div>              
+                <div v-if="selectedQuestion?.question?.practice_test_comment">
+                    <div class="forumCard answerForumCard">                        
+                        <div>
+                            <p class="cardText" v-text="selectedQuestion?.question?.practice_test_comment"></p>
+                            <div class="cardFooter">
+                                <div class="left">
+                                    <i class="far fa-user-circle"></i>
+                                    <p class="text-danger"> <span> added </span> by <strong>Aviation Bite</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
                 <div v-for="(comment, indexOfComment) in selectedQuestion?.comments">
-                    <div class="forumCard answerForumCard">
+                    <div class="forumCard answerForumCard">                        
                         <div>
                             <p class="cardText" v-text="comment.comment"></p>
                             <div class="cardFooter">
                                 <div class="left">
                                     <i class="far fa-user-circle"></i>
-                                    <p> <span v-text="moment(comment.created_at).fromNow()"></span> by <strong>  <a href= "#"> @{{ comment.user.username }}</strong> </a></p>
+                                    <p> <span v-text="moment(comment.created_at).fromNow()"></span> by   <a href= "#"><strong>@{{ comment.user.username }}</strong> </a></p>
                                 </div>
+                                <div class="right" id="reportDiv" v-if="(comment.user_id != {{Auth::user()->id}})" >
+                                    
+                                    <button v-if="comment.is_reported === 0" @click="reportComment(comment.id,indexOfComment)" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
+  
+                                    <!-- Span is shown if the button is hidden or comment is reported -->
+                                    <span v-else class="badge bg-warning">Reported</span>
+                                </div>
+                                <div class="right" v-else>
+                                    <span v-if="comment.is_reported === 1" class="badge bg-warning">Reported</span>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -71,6 +98,18 @@
                 <a href="https://online.prepware.com/cx3e/index.html" target="_blank">
                     ASA:: CX-3 (Click to redirect)
                 </a>
+            </div>
+        </div>
+        <div id="tab7" class="content">
+            <div class="content-section">
+                {{-- <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea> --}}
+                <div class="forumCardCont">
+                    <div class="form-group">
+                        <textarea placeholder="Your personal notes - not visible to others" rows="3" class="form-control" id="note">{{$practiceTest->note}}</textarea>
+                    </div> 
+                    <button class="btn btn-primary" style="margin-bottom: 5px;" id="saveNoteBtn" required>Save</button>
+                    <div id="messageSection"></div>
+                </div>
             </div>
         </div>
     </div>

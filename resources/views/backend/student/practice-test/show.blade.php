@@ -6,7 +6,7 @@
 <style>
     .takeTestSlider.owl-carousel .owl-stage {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         width: 100% !important;
     }
 
@@ -31,6 +31,15 @@
 
     .btnGrey a ,.btnGrey a:hover {
         color: #747980;
+    }
+    .answerForumCard{
+        grid-template-columns: 1fr auto;
+    }
+    .answerForumCard div {
+        flex: 1;
+    }
+    .answerForumCard div.right {
+        flex: 0 0 auto;
     }
 </style>
 @append
@@ -121,6 +130,9 @@
                  */
                 timer: 0,
                 interval: null,
+
+                isButtonVisible: true,  // Initially, the button is visible
+                // isReported: false,     // Whether the item has been reported or not
 
                 /**
                  * Practice Test ID. To be consistent while on this page.
@@ -213,7 +225,7 @@
                  */
                 getQuestionsByPracticeTestId() {
                     axios.post(
-                        '{{env('APP_URL')}}api/get-questions-by-practice-test-id', 
+                        "{{ route('get-questions-by-practice-test-id') }}", 
                     {
                         'practice_test_id': this.practiceTestId,
                         'user_id': this.userId
@@ -230,6 +242,35 @@
                         this.message.failure = 'There is some problem in fetching the questions as the moment.'
                         this.message.success = ''
                     });
+                },
+
+                reportComment(id,index) {
+                    axios.post(
+                        "{{ route('report-comment') }}", 
+                    {
+                        'id': id                        
+                    }).then((response) => {
+                        console.log(response)
+                        if (response.data.status) {
+                            
+                            // const comment = this.selectedQuestion.comments.filter(c => c.id === id);
+                            let comments = this.selectedQuestion.comments;
+                            for(var i = 0; i < comments.length; i++){
+                                if(comments[i].id === id){
+                                    // alert('hi');
+                                    // this.isButtonVisible = false;
+                                    comments[i].is_reported = 1;
+                                }
+                            }
+                            
+                            
+                        }
+                    }).catch((error) => {
+                        this.message.failure = 'There is some problem to report the comment.'
+                        this.message.success = ''
+                    });
+
+                    
                 },
 
                 /**
@@ -315,7 +356,7 @@
                 updatePracticeTestQuestionById() {
                     if (this.isSubmitted !== '1') {
                         axios.post(
-                            '{{env('APP_URL')}}api/update-practice-test-question-by-id', 
+                            "{{ route('update-practice-test-question-by-id') }}", 
                         {
                             'question_id': this.selectedQuestion.question_id,
                             'user_id': this.userId,
@@ -385,7 +426,7 @@
                  */
                 getComments() {
                     axios.post(
-                        '{{env('APP_URL')}}api/get-comments-by-question-id', 
+                        "{{ route('get-comments-by-question-id') }}", 
                     {
                         'question_id': this.selectedQuestion.question_id,
                         'user_id': this.userId,
@@ -403,7 +444,7 @@
                  */
                 saveCommentByQuestionId() {
                     axios.post(
-                        '{{env('APP_URL')}}api/save-comment-by-practice-test-question-id', 
+                        "{{ route('save-comment-by-practice-test-question-id') }}", 
                     {
                         'question_id': this.selectedQuestion.question_id,
                         'user_id': this.userId,
@@ -455,6 +496,38 @@
                 }
             });
         })();
+
+        $(document).on('click', '#saveNoteBtn', function(){
+            var note = $('#note').val();
+            // alert(note);
+
+            var id =  '{{ $practiceTest->id }}';
+            // alert(id)
+
+            $.ajax({
+                url: "{{ route('save-note-practice-test') }}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id: id,
+                    note: note
+                },
+                dataType: 'JSON',
+                success: function (data) { 
+                    console.log(data);                    
+                    var message = $('<span>Note saved!</span>'); 
+                    // alert(message)
+                    $('#messageSection').append(message);
+                    setTimeout(function() {
+                        message.fadeOut(function() {
+                            $(this).remove(); // Remove the element from the DOM after fade out
+                        });
+                    }, 3000);
+                    
+                     
+                }
+            }); 
+        })
     </script>
 
 @endsection

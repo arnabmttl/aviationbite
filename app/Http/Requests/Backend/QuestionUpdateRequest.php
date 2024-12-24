@@ -37,7 +37,8 @@ class QuestionUpdateRequest extends FormRequest
             'image' => 'nullable|array',
             'image.*' => 'nullable|image',
             'is_correct' => 'required|array',
-            'is_correct.*' => 'required|in:0,1'
+            'is_correct.*' => 'required|in:0,1',
+            'practice_test_comment' => 'nullable'
         ];
     }
 }

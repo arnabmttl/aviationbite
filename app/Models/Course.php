@@ -40,7 +40,7 @@ class Course extends Model
         'created_by_id',
         'updated_by_id',
         'approved_by_id',
-        'approved_at'
+        'approved_at',
     ];
 
     /**

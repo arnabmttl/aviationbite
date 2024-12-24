@@ -35,9 +35,12 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only('index', 'updateUser');
+        $this->middleware(['auth', 'blocked'])->only('index', 'updateUser');
     	$this->middleware('role:admin')->only('enquiryIndex', 'flaggedRepliesIndex');
     	$this->authService = new AuthService;
+
+        // $currentRouteName =  \Route::currentRouteName();
+        // echo $currentRouteName;
     }
 
     /**
@@ -47,7 +50,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // die('hi');
     	if($roleLabel = $this->authService->getRoleLabelOfCurrentlyLoggedInUser())
     		return view('backend.'.$roleLabel.'.index');
     	else

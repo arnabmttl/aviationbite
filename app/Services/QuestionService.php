@@ -93,6 +93,7 @@ class QuestionService extends BaseService
 			$questionInput['title'] = $input['title'];
 			$questionInput['description'] = $input['description'];
 			$questionInput['explanation'] = $input['explanation'];
+			$questionInput['practice_test_comment'] = $input['practice_test_comment'];
 
             if ($newQuestion = $this->questionRepository->createQuestion($questionInput)) {
             	/**
@@ -319,6 +320,7 @@ class QuestionService extends BaseService
 			$questionUpdate['title'] = $input['title'];
 			$questionUpdate['description'] = $input['description'];
 			$questionUpdate['explanation'] = $input['explanation'];
+			$questionUpdate['practice_test_comment'] = $input['practice_test_comment'];
 
             if ($result = $this->questionRepository->updateQuestionByObject($questionUpdate, $question)) {
             	/**

@@ -3,6 +3,36 @@
 @section('title', 'Show Thread')
 
 @section('content')
+
+<style>
+    .forumHead .buttons button {
+        margin: 0;
+    }
+    .share_btn {
+        display: inline-block;
+        position: relative;
+    }
+    .share_btn_icon {
+        display: flex;
+        padding: 6px;
+        align-items: center;
+        justify-content: center;
+    }
+    .share_btn .a2a_default_style {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 80px;
+    }
+    .share_btn .a2a_default_style.active {
+        display: flex;
+        gap: 5px;
+    }
+    .answerForum .forumHead .cardFooter {
+        margin-bottom: 15px;
+    }
+</style>
     <!-- BEGIN: Show -->
     <section id="cbz-thread-show" class="forumCont answerForum faqsTabsCont pt-5 pb-5">
         <div class="container">
@@ -104,15 +134,20 @@
                             <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"><button><i class="fas fa-bell"></i> Subscribe</button></a>                            
                             <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a>
                         @endauth
+                            <div id="messageCopyLink"></div>
+                            <div class="share_btn">
+                                <a href="javascript:void(0)" class="share_btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></a>
+                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                    <!-- <a class="a2a_button_email"></a> -->
+                                    <a class="a2a_button_facebook"></a>
+                                    <!-- <a class="a2a_button_sms"></a> -->
+                                    <a class="a2a_button_whatsapp"></a>
+                                    <a class="a2a_button_x"></a>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div id="messageCopyLink"></div>
-                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                            <a class="a2a_button_email"></a>
-                            <a class="a2a_button_facebook"></a>
-                            <a class="a2a_button_sms"></a>
-                            <a class="a2a_button_whatsapp"></a>
-                            <a class="a2a_button_x"></a>
-                        </div>
+                        
                         
                     </div>
 
@@ -212,6 +247,12 @@
         a2a_config.templates.x = {
             text: "Reading: "+title+" "+link,
         };
+    </script>
+
+    <script>
+        $('.share_btn_icon').click(function() {
+            $('.a2a_default_style').toggleClass('active');
+        });
     </script>
     
     <script defer src="https://static.addtoany.com/menu/page.js"></script>
