@@ -492,4 +492,15 @@ class APIController extends Controller
         $data = array('status' => true);
         return response()->json($data, 200);
     }
+
+    /**
+     * DELETE MY COMMENT
+     **/
+    public function delete_my_comment(Request $request)
+    {
+        $id = $request->id;
+        Comment::where('id', $id)->delete();
+        $data = array('status' => true);
+        return response()->json($data, 200);
+    }
 }

@@ -73,13 +73,15 @@
                                 </div>
                                 <div class="right" id="reportDiv" v-if="(comment.user_id != {{Auth::user()->id}})" >
                                     
-                                    <button v-if="comment.is_reported === 0" @click="reportComment(comment.id,indexOfComment)" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
+                                    <button v-if="comment.is_reported == 0" @click="reportComment(comment.id,indexOfComment)" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
   
                                     <!-- Span is shown if the button is hidden or comment is reported -->
                                     <span v-else class="badge bg-warning">Reported</span>
                                 </div>
                                 <div class="right" v-else>
-                                    <span v-if="comment.is_reported === 1" class="badge bg-warning">Reported</span>
+                                    <button @click="deleteMyComment(comment.id,indexOfComment)" class="btn btn-sm bg-danger "><i class="fas fa-bin"></i>Delete</button>
+
+                                    <span v-if="comment.is_reported == 1" class="badge bg-warning">Reported</span>
                                 </div>
                                 
                             </div>

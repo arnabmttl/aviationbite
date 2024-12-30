@@ -130,10 +130,7 @@
                  */
                 timer: 0,
                 interval: null,
-
-                isButtonVisible: true,  // Initially, the button is visible
-                // isReported: false,     // Whether the item has been reported or not
-
+                
                 /**
                  * Practice Test ID. To be consistent while on this page.
                  */
@@ -244,6 +241,10 @@
                     });
                 },
 
+                /*
+                ** Report someone's comment of a question during practice test
+                */
+
                 reportComment(id,index) {
                     axios.post(
                         "{{ route('report-comment') }}", 
@@ -253,12 +254,9 @@
                         console.log(response)
                         if (response.data.status) {
                             
-                            // const comment = this.selectedQuestion.comments.filter(c => c.id === id);
                             let comments = this.selectedQuestion.comments;
                             for(var i = 0; i < comments.length; i++){
-                                if(comments[i].id === id){
-                                    // alert('hi');
-                                    // this.isButtonVisible = false;
+                                if(comments[i].id == id){
                                     comments[i].is_reported = 1;
                                 }
                             }
@@ -271,6 +269,26 @@
                     });
 
                     
+                },
+
+                /*
+                ** Delete My Own Comment
+                */
+
+                deleteMyComment(id,index) {
+                    axios.post(
+                        "{{ route('delete-my-comment') }}", 
+                    {
+                        'id': id                        
+                    }).then((response) => {
+                        console.log(response)
+                        if (response.data.status) {                            
+                            this.getComments();                            
+                        }
+                    }).catch((error) => {
+                        this.message.failure = 'There is some problem to delete the comment.'
+                        this.message.success = ''
+                    });
                 },
 
                 /**
