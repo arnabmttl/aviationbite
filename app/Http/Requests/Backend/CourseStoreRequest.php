@@ -36,7 +36,7 @@ class CourseStoreRequest extends FormRequest
             'valid_for' => 'required|numeric|min:1',
             'is_active' => 'required|in:0,1',
             'number_of_tests' => 'required|numeric|min:0',
-            'video_url' => 'required|url',
+            'video_url' => 'nullable|url',
             'thumbnail_image' => 'nullable|image',
             'short_description' => 'required',
             'description' => 'required',

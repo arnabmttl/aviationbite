@@ -123,7 +123,7 @@
                                 !!}
                                     <button type="submit"><i class="fas fa-bell"></i> UnSubscribe</button>
                                     
-                                    <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a>
+                                    {{-- <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a> --}}
                                 {{ Form::close() }}
                             @else
                                 {!! 
@@ -135,7 +135,7 @@
                                 !!}
                                     <button><i class="fas fa-bell"></i> Subscribe</button>
                                     
-                                    <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a>
+                                    {{-- <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a> --}}
                                 {{ Form::close() }}
                             @endif
                         @else
@@ -211,10 +211,10 @@
         a2a_config.templates = a2a_config.templates || {};
 
         var title = "{{$thread->title}}";
-        var link = "{{env('APP_URL')}}"+"{{route('thread.show',[$channelId,$thread->id])}}";
+        var link = "{{route('thread.show',[$channelId,$thread->id])}}";
 
         $(document).ready(function(){
-            // alert(link)
+            
         });
         $('.copy-link').click(function() {
             

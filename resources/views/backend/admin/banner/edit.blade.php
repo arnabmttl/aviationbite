@@ -50,7 +50,7 @@
                                                 <div class="row">
                                                     
                                                     <!-- Meta Title -->
-                                                    <div class="col-12 form-label-group">
+                                                    <div class="col-8 form-label-group">
                                                         {!!
                                                             Form::text(
                                                                 'title',
@@ -70,7 +70,20 @@
                                                             <x-validation-error-message :message="$message" />
                                                         @enderror
                                                     </div>
+                                                    <div class="col-4 form-label-group">
+                                                        
+                                                        {!! Form::label('set_page_for', 'Set Page For') !!}
 
+                                                        <select name="set_page_for" class="form-control @if($errors->has('set_page_for')) is-invalid @endif" id="">
+                                                            <option value="" hidden selected>Set banner for</option>
+                                                            <option value="home" @if($banner->set_page_for == 'home') selected @endif>Home</option>
+                                                            <option value="forum" @if($banner->set_page_for == 'forum') selected @endif>Forum</option>
+                                                        </select>
+
+                                                        @error('set_page_for')
+                                                            <x-validation-error-message :message="$message" />
+                                                        @enderror
+                                                    </div>
 
                                                     <!-- Meta Description -->
                                                     <div class="col-12 form-label-group">
@@ -115,7 +128,7 @@
 
                                                     <div class="col-12">
                                                         <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Submit</button>
-                                                        <a class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" href="{{ route('page.index') }}">
+                                                        <a class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" href="{{ route('banner.index') }}">
                                                             Cancel
                                                         </a>
                                                     </div>

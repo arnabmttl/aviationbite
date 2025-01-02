@@ -261,6 +261,8 @@ Route::prefix('/api')->group(function () {
      * Save notes for practice test
      */
     Route::post('save-note-practice-test', [APIController::class, 'saveNotePracticeTest'])->name('save-note-practice-test');
+    Route::post('delete-my-note', [APIController::class, 'delete_my_note'])->name('delete-my-note');
+    Route::post('get-notes-by-question-id', [APIController::class, 'get_notes_by_question_id'])->name('get-notes-by-question-id');
     Route::post('report-comment', [APIController::class, 'report_comment'])->name('report-comment');
     Route::post('delete-my-comment', [APIController::class, 'delete_my_comment'])->name('delete-my-comment');
 

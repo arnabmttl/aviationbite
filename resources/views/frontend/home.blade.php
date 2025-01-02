@@ -45,7 +45,7 @@
                             <li class="mb-2">Our comprehensive test series helps you evaluate aviation knowledge.</li>
                             <li class="mb-2">As we believe in the five P’s Prior preparations prevent poor performance. </li> --}}
                         </ul>
-                        <a class="btn btnBlue" href="{{ url('/about-us') }}">Know More</a>
+                        {{-- <a class="btn btnBlue" href="{{ url('/about-us') }}">Know More</a> --}}
                     </div>
                 </div>
             </div>
@@ -219,7 +219,14 @@
                             <li>Support all devices</li>
                             <li>User-friendly interface.</li>
                         </ul>
-                        <button class="btn btnBlue">Know More</button>
+                        
+                        @foreach($menuItems as $item)
+                            @if ($item->children->count())
+                                
+                            @else                                
+                                <a href="{{ $item->redirection_url }}" class="btn btnBlue">Know More</a>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -244,133 +251,70 @@
                 </div>
             </div>
             <div class="forumContent mt-5">
+                @forelse ($threads as $index => $thread)
+                  
                 <div class="forumCard">
                     <div>
-                        <p class="cardNumber">#1</p>
+                        <p class="cardNumber">#{{ $index + $threads->firstItem()  }}</p>
                     </div>
                     <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
+                        <p class="cardTitle">
+                            <a href="{{ $thread->path() }}">
+                                {{ $thread->title }}
+                            </a>
+                        </p>
+
+                        <p class="cardText">
+                            @if (strlen($thread->body) > 120)
+                                {{ substr($thread->body, 0, 120) }}<a class="readMoreBtn" href="{{ $thread->path() }}">Read More</a>
+                            @else
+                                {{ $thread->body }}
+                            @endif
+                        </p>
                         <div class="cardFooter">
                             <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
+                                <p>Posted at {{ $thread->created_at }} by
+                                <a href="#"> {{ $thread->creator->username }} </a> </p>
                             </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
+                            <div class="right">
+                                @auth
+                                    <img data-bs-toggle="modal" data-bs-target="#qFlaggingModal{{$thread->id}}" src="{{ asset('frontend/images/flag.svg') }}">
+                                    <!-- Question Flagging Modal -->
+                                    <div class="modal fade" id="qFlaggingModal{{$thread->id}}" tabindex="-1" aria-labelledby="qFlaggingModal{{$thread->id}}Label" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content" style="padding: 25px;text-align: left;">
+                                            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+                                                <div>
+                                                    <div>
+                                                        <p class="title">Report a reply.</p>
+                                                        <p class="desc">Write your reason for reporting (max. 255 characters)</p>
+                                                    </div>
+                                                    <div>
+                                                        <div class="col-12 form-group">
+                                                            <textarea class="form-control" v-model="reasonForReporting"></textarea>
+                                                        </div>
+                                                        <div class="col-12 form-group">
+                                                            <button class="form-control" v-on:click="reportQuestion({{ $thread->id }})">Report</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                @endauth
+
+                                    <p>{{ $thread->replies->count() }}<br><span><a href="{{ $thread->path() }}">{{ Str::plural('Reply' , $thread->replies->count()) }}</span></a></p>
+                                    <p>{{ $thread->views }}<br><span>Views</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="forumCard">
-                    <div>
-                        <p class="cardNumber">#1</p>
-                    </div>
-                    <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
-                        <div class="cardFooter">
-                            <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
-                            </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="forumCard">
-                    <div>
-                        <p class="cardNumber">#1</p>
-                    </div>
-                    <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
-                        <div class="cardFooter">
-                            <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
-                            </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="forumCard">
-                    <div>
-                        <p class="cardNumber">#1</p>
-                    </div>
-                    <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
-                        <div class="cardFooter">
-                            <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
-                            </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="forumCard">
-                    <div>
-                        <p class="cardNumber">#1</p>
-                    </div>
-                    <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
-                        <div class="cardFooter">
-                            <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
-                            </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="forumCard">
-                    <div>
-                        <p class="cardNumber">#1</p>
-                    </div>
-                    <div>
-                        <p class="cardTitle">What is Lorem Lpsum?</p>
-                        <p class="cardText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            dummy text of the printing and and typesetting industry. Lorem Ipsum is...<a class="readMoreBtn" href="">Read More</a></p>
-                        <div class="cardFooter">
-                            <div class="left">
-                                <p>Posted 21 june 2021 by XYZ</p>
-                                <p>Last Updated 12:20 22 june 2021</p>
-                            </div>
-                            <div class="right
-                                ">
-                                <p>25<br><span>Reply</span></p>
-                                <p>2.5k<br><span>Views</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="viewAllBtn">All Forums <i class="fas fa-angle-right"></i></a>
+                  
+                @empty
+                    
+                @endforelse
+                <a href="{{ route('threads.index') }}" class="viewAllBtn">All Forums <i class="fas fa-angle-right"></i></a>
             </div>
         </div>
     </section>

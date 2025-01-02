@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Set Page For</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -59,6 +60,9 @@
                                     </td>
                                     <td>
                                         {{ $item->description }}
+                                    </td>
+                                    <td>
+                                        {{ ucwords($item->set_page_for) }}
                                     </td>
                                     <td>
                                         <div class="dropdown">

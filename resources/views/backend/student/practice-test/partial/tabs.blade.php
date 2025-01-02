@@ -103,14 +103,30 @@
             </div>
         </div>
         <div id="tab7" class="content">
-            <div class="content-section">
-                {{-- <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea> --}}
-                <div class="forumCardCont">
-                    <div class="form-group">
-                        <textarea placeholder="Your personal notes - not visible to others" rows="3" class="form-control" id="note">{{$practiceTest->note}}</textarea>
-                    </div> 
-                    <button class="btn btn-primary" style="margin-bottom: 5px;" id="saveNoteBtn" required>Save</button>
-                    <div id="messageSection"></div>
+            <div>
+                <div class='content-section'>
+                    <div class="forumCardCont">
+                        <div class="form-group" >
+                            <textarea v-model="noteOnQuestion" placeholder="Your personal notes - not visible to others" class="form-control" rows="5"></textarea>
+                        </div>
+                        <button v-on:click="saveNotes()" class="btn btn-primary" style="margin-bottom: 5px;">Save</button>
+                    </div>
+                </div> 
+                <div v-for="(note, indexOfNote) in selectedQuestion?.notes">
+                    <div class="forumCard answerForumCard">                        
+                        <div>
+                            <p class="cardText" v-text="note.note"></p>
+                            <div class="cardFooter">
+                                <div class="left">
+                                    <p> <span v-text="moment(note.created_at).fromNow()"></span></p>
+                                </div>   
+                                <div class="right">
+                                    <button @click="deleteMyNote(note.id,indexOfNote)" class="btn btn-sm bg-danger "><i class="fas fa-bin"></i>Delete</button>
+
+                                </div>                             
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

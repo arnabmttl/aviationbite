@@ -42,6 +42,7 @@ use App\Models\TakeTestQuestion;
 use App\Models\QuestionOption;
 use App\Models\PracticeTest;
 use App\Models\Comment;
+use App\Models\Note;
 
 // Exception
 use Exception;
@@ -462,24 +463,7 @@ class APIController extends Controller
         ]);
     }
 
-    /**
-     * 
-     **/
-    public function saveNotePracticeTest(Request $request)
-    {
-        // dd($request->all());
-
-        PracticeTest::where('id', $request->id)->update([
-            'note' => $request->note
-        ]);
-
-        return response()->json([
-            'status' => true
-        ]);
-
-
-    }
-
+    
     /**
      * Report Comment On Practice Test
      **/
@@ -503,4 +487,57 @@ class APIController extends Controller
         $data = array('status' => true);
         return response()->json($data, 200);
     }
+
+    /**
+     * GET NOTES FOR QUESTION
+     **/
+    public function get_notes_by_question_id(Request $request)
+    {
+        $user_id = \Crypt::decrypt($request->user_id);
+        $question_id = \Crypt::decrypt($request->question_id);
+
+        $data['notes'] = Note::where('question_id',  $question_id)->where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        $data['result'] = true;
+        return response()->json($data, 200);
+    }
+
+    /**
+     * 
+     **/
+    public function saveNotePracticeTest(Request $request)
+    {
+        // dd($request->all());
+
+        $question_id = \Crypt::decrypt($request->question_id);
+        $user_id = \Crypt::decrypt($request->user_id);
+        $note = $request->note;
+        $practice_test_id = $request->practice_test_id;
+
+       
+
+        Note::insert([
+            'question_id' => $question_id,
+            'user_id' => $user_id,
+            'note' => $note,
+            'practice_test_id' => $practice_test_id,
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+
+        $data['notes'] = Note::where('question_id',  $question_id)->where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        $data['result'] = true;
+        return response()->json($data);
+
+
+    }
+
+    /**
+     * DELETE NOTE
+     **/
+    public function delete_my_note(Request $request)
+    {
+        Note::where('id', $request->id)->delete();
+        $data = array('status' => true);
+        return response()->json($data, 200);
+    }
+
 }

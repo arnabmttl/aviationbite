@@ -173,6 +173,7 @@
                  * Variable to hold comment.
                  */
                 commentOnQuestion: null,
+                noteOnQuestion: null,
             },
 
             filters: {
@@ -453,6 +454,64 @@
                             this.selectedQuestion.comments = response.data.comments;
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'
+                        this.message.success = ''
+                    });
+                },
+
+                /**
+                 * Get the notes for the selected question.
+                 */
+                getNotes() {
+                    axios.post(
+                        "{{ route('get-notes-by-question-id') }}", 
+                    {
+                        'question_id': this.selectedQuestion.question_pk_id,
+                        'user_id': this.userId,
+                    }).then((response) => {     
+                        if (response.data.result)                    
+                            this.selectedQuestion.notes = response.data.notes;
+                    }).catch((error) => {
+                        this.message.failure = 'There is some problem in getting the notes at the moment.'
+                        this.message.success = ''
+                    });
+                },
+
+                /**
+                 * Save note for the selected question.
+                 */
+
+                saveNotes(){
+                    axios.post(
+                        "{{ route('save-note-practice-test') }}", 
+                    {
+                        'question_id': this.selectedQuestion.question_pk_id,
+                        'practice_test_id': "{{ $practiceTest->id }}",
+                        'user_id': this.userId,
+                        'note': this.noteOnQuestion,
+                    }).then((response) => {
+                        if (response.data.result) {
+                            this.selectedQuestion.notes = response.data.notes;
+                            this.noteOnQuestion = null;
+                        }
+                    }).catch((error) => {
+                        this.message.failure = 'There is some problem in getting the comments at the moment.'
+                        this.message.success = ''
+                    });
+                },
+
+                deleteMyNote(id, index){
+                    
+                    axios.post(
+                        "{{ route('delete-my-note') }}", 
+                    {
+                        'id': id                        
+                    }).then((response) => {
+                        console.log(response)
+                        if (response.data.status) {                            
+                            this.getNotes();                            
+                        }
+                    }).catch((error) => {
+                        this.message.failure = 'There is some problem to report the comment.'
                         this.message.success = ''
                     });
                 },

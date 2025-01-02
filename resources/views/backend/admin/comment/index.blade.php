@@ -47,7 +47,7 @@
                                         {{ $index + $data->firstItem() }}
                                     </th>
                                     <td>
-                                        {{$item->question->title}}
+                                        <strong>{{$item->question->question_id}}</strong>:{{$item->question->title}}
                                     </td>
                                     <td>
                                         {{ $item->comment }}

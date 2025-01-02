@@ -25,7 +25,8 @@ class BannerUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'description' => 'required',
+            'set_page_for' => 'required',
+            'description' => 'nullable',
             'image' => 'nullable'
         ];
     }

@@ -45,7 +45,7 @@ class ThreadsController extends Controller
             return $threads;
         };
 
-        $banners = Banner::all();
+        $banners = Banner::where('set_page_for', 'forum')->get();
         return view('backend.student.threads.index')->with(['threads' => $threads, 'filters' => $filters, 'channel' => $channel, 'search' => false , 'banners' => $banners]);
     }
 
@@ -98,7 +98,9 @@ class ThreadsController extends Controller
         $search = $request->search;
         $threads = Thread::where('title', 'like', '%'.$search.'%')->paginate(5);
 
-        return view('backend.student.threads.index')->with(['threads' => $threads, 'filters' => $filters, 'channel' => $channel, 'search' => $search]);
+        $banners = Banner::where('set_page_for', 'forum')->get();
+
+        return view('backend.student.threads.index')->with(['threads' => $threads, 'filters' => $filters, 'channel' => $channel, 'search' => $search, 'banners' => $banners]);
     }
 
     /**

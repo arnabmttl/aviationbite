@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Page;
 use App\Models\Banner;
+use App\Models\Thread;
+use App\Models\Channel;
+
+use App\Filters\ThreadFilters;
 
 // Services
 use App\Services\CourseService;
@@ -39,11 +43,36 @@ class FrontendController extends Controller
     //         return abort(404);
     // }
 
-    public function home(Request $request)
+    public function home(Request $request,Channel $channel, ThreadFilters $filters)
     {
-        $banners = Banner::all();
+        $banners = Banner::where('set_page_for', 'home')->get();
         $aboutUs = Page::where('slug', 'about-us')->first();
-        return view('frontend.home', compact('banners','aboutUs'));
+
+        if (request()->has('subscribed') && auth()->check()) {
+            if ($channel->exists) {
+                $threads = request()->user()->subscribedThreads()->where('channel_id', $channel->id)->paginate(5);
+            } else {
+                $threads = request()->user()->subscribedThreads()->paginate(5);
+            }
+        } else {
+            $threads = $this->getThreads($channel, $filters);
+        }
+
+        if (request()->wantsJson()) {
+            return $threads;
+        };
+
+        return view('frontend.home', compact('banners','aboutUs','threads'));
+    }
+
+    public function getThreads(Channel $channel, ThreadFilters $filters)
+    {
+        $threads = Thread::latest()->filter($filters);
+
+        if ($channel->exists) {
+            $threads->where('channel_id', $channel->id);
+        }
+        return $threads->paginate(6);
     }
 
     /**
