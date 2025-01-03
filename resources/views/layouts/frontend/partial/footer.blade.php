@@ -34,12 +34,14 @@
 					<a href="{{ route('terms') }}" target="_blank">Terms &amp; Conditions</a>
 				</div>
 			</div>
-			<div class="col-md-3 col-12 newsletter">
+			<form class="col-md-3 col-12 newsletter" method="POST" action="{{ route('save-newsletter') }}">
+				@csrf
 				<p class="title">Newsletter</p>
 				<p>Subscribe to discounts &amp; offers</p>
-				<input type="email" name="email" placeholder="Email address">
-				<button class="btn">Subscribe</button>
-			</div>
+				<input type="email" name="email_id" placeholder="Email address" required autocomplete="off">
+				<input type="hidden" name="current_route_name" value="{{ \Request::url() }}">
+				<button class="btn" type="submit">Subscribe</button>
+			</form>
 		</div>
 	</div>
 </footer>

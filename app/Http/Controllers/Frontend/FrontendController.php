@@ -10,6 +10,7 @@ use App\Models\Page;
 use App\Models\Banner;
 use App\Models\Thread;
 use App\Models\Channel;
+use App\Models\Newsletter;
 
 use App\Filters\ThreadFilters;
 
@@ -208,5 +209,27 @@ class FrontendController extends Controller
             Session::flash('failure_enquiry_form', 'There is some problem in logging the enquiry. Kindly try after some time.');
 
         return redirect()->back();
+    }
+
+    /**
+     * Save Newsletter
+     **/
+    public function save_newsletter(Request $request)
+    {
+        $params = $request->except('_token');
+        $email_id = $params['email_id'];
+        $exist = Newsletter::whereEmailId($email_id)->first();
+        $getCurrentRouteName = $params['current_route_name'];
+        // dd($getCurrentRouteName);
+        
+        if(empty($exist)){
+            Newsletter::insert([
+                'email_id' => $email_id,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+            return redirect($getCurrentRouteName)->with('toastrSuccess', 'Newsletter Subscribed Successfully.');
+        } else {
+            return redirect($getCurrentRouteName)->with('toastrInfo', 'This email already subscribed.');
+        }
     }
 }

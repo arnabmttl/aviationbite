@@ -166,6 +166,10 @@ Route::prefix('/backend')->group(function () {
     Route::get('/comment', [CommentController::class, 'index'])->name('comment.index');
     Route::delete('/comment/delete/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
+    /*
+    ** Newsletter
+    */
+    Route::get('/newsletter', [DashboardController::class, 'newsletter'])->name('newsletter');
     /**
      * Section views related routes.
      */
@@ -324,6 +328,8 @@ Route::get('/privacy-policy', [FrontendController::class, 'privacy'])->name('pri
 Route::get('/terms-conditions', [FrontendController::class, 'terms'])->name('terms');
 Route::get('/course/{course:slug}', [FrontendController::class, 'courseBySlug'])->name('single.course');
 Route::post('/enquiry', [FrontendController::class, 'enquiry']);
+
+Route::post('/save-newsletter', [FrontendController::class, 'save_newsletter'])->name('save-newsletter');
 
 /**
  * Practice Test Routes

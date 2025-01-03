@@ -19,6 +19,9 @@ use App\Http\Requests\Backend\UpdateUserRequest;
 // Support Facades
 use Illuminate\Support\Facades\Session;
 
+// Models
+use App\Models\Newsletter;
+
 class DashboardController extends Controller
 {
     /**
@@ -110,5 +113,14 @@ class DashboardController extends Controller
             Session::flash('failure', 'There is some problem in updating the profile.');
 
         return redirect(route('dashboard'));
+    }
+
+    /**
+     * Newsletter
+     **/
+    public function newsletter(Request $request)
+    {
+        $data = Newsletter::orderBy('id', 'desc')->paginate(20);
+        return view('backend.admin.newsletter.index', compact('data'));
     }
 }

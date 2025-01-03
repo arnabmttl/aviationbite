@@ -106,8 +106,16 @@
         <script>
             $(window).on('load', function() {
                
-               @if(session('toastr'))
-                  toastr.info('{{ session('toastr') }}');
+               @if(session('toastrInfo'))
+                  toastr.info('{{ session('toastrInfo') }}');
+               @endif
+
+               @if(session('toastrSuccess'))
+                  toastr.success('{{ session('toastrSuccess') }}');
+               @endif
+
+               @if(session('toastrWarning'))
+                  toastr.warning('{{ session('toastrWarning') }}');
                @endif
                
             })

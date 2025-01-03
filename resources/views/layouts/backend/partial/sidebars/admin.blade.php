@@ -167,6 +167,13 @@
                 </a>
             </li>
 
+            <li class="{{ \Request::is('backend/newsletter') || \Request::is('backend/newsletter/*') ? 'active' : '' }} nav-item">
+                <a class="d-flex align-items-center" href="{{ route('newsletter') }}">
+                    <i data-feather="users"></i>
+                    <span class="menu-title text-truncate" data-i18n="Newsletter">Newsletter</span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     <i data-feather="power"></i>

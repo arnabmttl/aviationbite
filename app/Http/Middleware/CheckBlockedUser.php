@@ -23,9 +23,9 @@ class CheckBlockedUser
 
             $currentRouteName =  \Route::currentRouteName();
             if($currentRouteName == 'dashboard'){
-                return redirect()->route('home')->with('toastr', 'Your account has been blocked. Please talk to system admin.');
+                return redirect()->route('home')->with('toastrInfo', 'Your account has been blocked. Please talk to system admin.');
             } else {
-                return redirect()->route($currentRouteName)->with('toastr', 'Your account has been blocked. Please talk to system admin.');
+                return redirect()->route($currentRouteName)->with('toastrInfo', 'Your account has been blocked. Please talk to system admin.');
             }
             
         }
