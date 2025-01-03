@@ -203,12 +203,11 @@ class FrontendController extends Controller
 
         $result = (new EnquiryRepository)->createEnquiry($input);
 
-        if ($result)
-            Session::flash('success_enquiry_form', 'The enquiry has been logged successfully. Someone from our team will get in touch with you shortly.');
-        else
-            Session::flash('failure_enquiry_form', 'There is some problem in logging the enquiry. Kindly try after some time.');
-
-        return redirect()->back();
+        if ($result){
+            return redirect()->back()->with('toastrSuccess', 'The enquiry has been logged successfully. Someone from our team will get in touch with you shortly.');
+        } else {
+            return redirect()->back()->with('toastrInfo', 'There is some problem in logging the enquiry. Kindly try after some time.');
+        }        
     }
 
     /**
@@ -219,17 +218,20 @@ class FrontendController extends Controller
         $params = $request->except('_token');
         $email_id = $params['email_id'];
         $exist = Newsletter::whereEmailId($email_id)->first();
-        $getCurrentRouteName = $params['current_route_name'];
-        // dd($getCurrentRouteName);
         
         if(empty($exist)){
             Newsletter::insert([
                 'email_id' => $email_id,
                 'created_at' => date('Y-m-d H:i:s')
             ]);
-            return redirect($getCurrentRouteName)->with('toastrSuccess', 'Newsletter Subscribed Successfully.');
+
+            return response()->json([
+                'result' => true,
+            ]);
         } else {
-            return redirect($getCurrentRouteName)->with('toastrInfo', 'This email already subscribed.');
+            return response()->json([
+                'result' => false,
+            ]);
         }
     }
 }
