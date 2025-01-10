@@ -4,16 +4,20 @@
 
 @section('content')
     <!-- BEGIN: Contact Us Banner -->
-    <section class="contact-page-banner">
+    @forelse ($banners as $banner)
+    <section class="contact-page-banner" style="background-image: url({{ $banner->image }});">
         <div class="container">
             <div class="row">
                 <div class="col-12 contact-banner-text">
                     <h2>Contact Us</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and industry.</p>
+                    <p>{{$banner->description}}</p>
                 </div>
             </div>
         </div>
     </section>
+    @empty
+                
+    @endforelse
     <!-- END: Contact Us Banner -->
 
     <!-- BEGIN: Contact Us Main -->
@@ -26,7 +30,7 @@
                 </div>
             </div>
             <div class="row contact-info">
-                <div class="col-lg-5">
+                {{-- <div class="col-lg-5">
                     <div class="row">
                         <div class="col-2 text-end">
                             <i class="fas fa-map-marker-alt"></i>
@@ -39,15 +43,15 @@
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3">
+                </div> --}}
+                <div class="col-lg-8">
                     <div class="row">
                         <div class="col-2 text-end">
-                            <i class="fas fa-phone-alt"></i>
+                            <i class="fab fa-whatsapp"></i>
                         </div>
                         <div class="col-10 contact-location-text">
                             <h5>Phone</h5>
-                            <p>1.844.235.3567</p>
+                            <p>+91 90505 66448</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +62,7 @@
                         </div>
                         <div class="col-10 contact-location-text">
                             <h5>Mail Address</h5>
-                            <p>support@genestring.co.in</p>
+                            <p>support@aviationbite.com</p>
                         </div>
                     </div>
                 </div>

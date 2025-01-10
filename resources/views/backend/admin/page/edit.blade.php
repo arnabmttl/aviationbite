@@ -3,6 +3,10 @@
 @section('title', 'Edit Page')
 
 @section('content')
+
+@section('page-styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/summernote.css') }}">
+@endsection
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-12 mb-2">
@@ -176,7 +180,7 @@
                                                     <!-- Meta Description -->
                                                     <div class="col-12 form-label-group">
                                                         {!!
-                                                            Form::text(
+                                                            Form::textarea(
                                                                 'meta_description',
                                                                 null,
                                                                 [
@@ -187,6 +191,7 @@
                                                                     'tabindex' => '3'
                                                                 ]
                                                             )
+
                                                         !!}
                                                         {!! Form::label('meta_description', 'Meta Description') !!}
 
@@ -301,4 +306,16 @@
         </section>
     </div>
 </div>
+@endsection
+
+@section('page-scripts')
+    <script src="{{ asset('backend/js/summernote.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#meta_description').summernote();
+        });
+    </script>
+
+
 @endsection

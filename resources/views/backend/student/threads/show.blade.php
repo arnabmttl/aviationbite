@@ -121,7 +121,7 @@
                                         'class' => 'form'
                                     ])
                                 !!}
-                                    <button type="submit"><i class="fas fa-bell"></i> UnSubscribe</button>
+                                    <button type="submit"><i class="fas fa-bell"></i> Unsubscribe</button>
                                     
                                     {{-- <a href="javascript:void(0)" class="btn btn-primary copy-link" >Copy Link</a> --}}
                                 {{ Form::close() }}

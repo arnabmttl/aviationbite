@@ -10,7 +10,7 @@
                     
                     <div class="form-group">
                         <button class="btn btn-xs btn-primary" @click="update">Update</button>
-                        <button class="btn btn-xs btn-link" @click="editing = false">Cancel</button>
+                        <button class="btn btn-xs btn-link" @click="cancelEditing()">Cancel</button>
                     </div>
                 </p>
             </div>

@@ -277,19 +277,23 @@
                 */
 
                 deleteMyComment(id,index) {
-                    axios.post(
-                        "{{ route('delete-my-comment') }}", 
-                    {
-                        'id': id                        
-                    }).then((response) => {
-                        console.log(response)
-                        if (response.data.status) {                            
-                            this.getComments();                            
-                        }
-                    }).catch((error) => {
-                        this.message.failure = 'There is some problem to delete the comment.'
-                        this.message.success = ''
-                    });
+                    const isConfirmDeleteComment = window.confirm('Are you sure you want to delete the comment?');
+
+                    if(isConfirmDeleteComment){
+                        axios.post(
+                            "{{ route('delete-my-comment') }}", 
+                        {
+                            'id': id                        
+                        }).then((response) => {
+                            console.log(response)
+                            if (response.data.status) {                            
+                                this.getComments();                            
+                            }
+                        }).catch((error) => {
+                            this.message.failure = 'There is some problem to delete the comment.'
+                            this.message.success = ''
+                        });
+                    }                     
                 },
 
                 /**
@@ -500,20 +504,24 @@
                 },
 
                 deleteMyNote(id, index){
-                    
-                    axios.post(
-                        "{{ route('delete-my-note') }}", 
-                    {
-                        'id': id                        
-                    }).then((response) => {
-                        console.log(response)
-                        if (response.data.status) {                            
-                            this.getNotes();                            
-                        }
-                    }).catch((error) => {
-                        this.message.failure = 'There is some problem to report the comment.'
-                        this.message.success = ''
-                    });
+
+                    const isConfirmDeleteNote = window.confirm('Are you sure you want to delete the note?');
+
+                    if(isConfirmDeleteNote){
+                        axios.post(
+                            "{{ route('delete-my-note') }}", 
+                        {
+                            'id': id                        
+                        }).then((response) => {
+                            console.log(response)
+                            if (response.data.status) {                            
+                                this.getNotes();                            
+                            }
+                        }).catch((error) => {
+                            this.message.failure = 'There is some problem to report the comment.'
+                            this.message.success = ''
+                        });
+                    } 
                 },
 
                 /**

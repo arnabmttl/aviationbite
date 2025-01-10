@@ -84,6 +84,7 @@
                                                             <option value="" hidden selected>Set banner for</option>
                                                             <option value="home">Home</option>
                                                             <option value="forum">Forum</option>
+                                                            <option value="contact">Contact Us</option>
                                                         </select>
 
                                                         @error('set_page_for')

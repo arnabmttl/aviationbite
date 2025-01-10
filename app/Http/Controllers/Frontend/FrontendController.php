@@ -136,7 +136,8 @@ class FrontendController extends Controller
      */
     public function contactUs()
     {
-        return view('frontend.contact-us');
+        $banners = Banner::where('set_page_for', 'contact')->get();
+        return view('frontend.contact-us', compact('banners'));
     }
 
     /**

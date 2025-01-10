@@ -38,13 +38,7 @@
                     <div class="aboutText">
                         <p class="title">About Us</p>
                         <p class="desc">{{$aboutUs->meta_title}}</p>
-                        <ul>
-                            <li class="mb-2">{{$aboutUs->meta_description}}</li>
-                            {{-- <li class="mb-2">Provide insight into recent world events .</li>
-                            <li class="mb-2">The most experienced pilots design our personalised course to make you feel confident & ready for the big day.</li>
-                            <li class="mb-2">Our comprehensive test series helps you evaluate aviation knowledge.</li>
-                            <li class="mb-2">As we believe in the five P’s Prior preparations prevent poor performance. </li> --}}
-                        </ul>
+                        {!! $aboutUs->meta_description !!}
                         {{-- <a class="btn btnBlue" href="{{ url('/about-us') }}">Know More</a> --}}
                     </div>
                 </div>
@@ -250,7 +244,7 @@
                     A platform dedicated to aviators 
                 </div>
             </div>
-            <div class="forumContent mt-5">
+            <div class="forumContent mt-5" id="cbz-thread-index">
                 @forelse ($threads as $index => $thread)
                   
                 <div class="forumCard">
@@ -414,4 +408,27 @@
         </div>
     </section>
     <!-- END: Testimonial section -->
+    <script>
+        new Vue({
+            el: '#cbz-thread-index',
+
+            data: {
+                reasonForReporting: null
+            },
+
+            methods: {
+                /**
+                 * Function to report the question.
+                 */
+                reportQuestion(id) {
+                    axios.post('{{env('APP_URL')}}forum/threads/' + id + '/flags', {
+                        reason: this.reasonForReporting
+                    });
+
+                    this.reasonForReporting = null;
+                    $('#qFlaggingModal'+id).modal('toggle');
+                },
+            }
+        });
+    </script>
 @endsection

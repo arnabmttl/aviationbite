@@ -20,6 +20,7 @@ body {
     line-height: 1.5;
     letter-spacing: -0.1px;
     color: rgba(0, 0, 0, 0.63);
+    background: #fff;
 }
 
 img {
@@ -185,6 +186,8 @@ a.nav-link:hover::after {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: 10px;
+    background: #fff;
+    margin-bottom: 16px;
 
 }
 
@@ -556,7 +559,7 @@ button.owl-prev {
 
 .footerBottom {
     background: #B6B9BB;
-    color: #fff;
+    color: #005eb8;
     display: flex;
     justify-content: space-between;
 }
@@ -894,7 +897,6 @@ ul.tabsSlider {
 /* CONTACT PAGE CSS STARTS HERE */
 
 .contact-page-banner {
-    background: url("../images/contact-bg.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover !important;
@@ -1018,6 +1020,7 @@ ul.tabsSlider {
     text-decoration: none;
     display: inline-block;
     margin-top: 32px;
+    border: none;
 }
 
 .send-message:hover {
@@ -1315,6 +1318,7 @@ ul.tabsSlider {
     background: #fff;
     padding: 15px;
     box-shadow: none;
+    margin: 0;
 }
 
 .takeTestCont .forumCard .ques p {
@@ -2803,17 +2807,33 @@ label[for="remember"] {
     font-size: 20px;
 }
 
-.newsletter input{
+.newsletter input {
     height: 50px;
     padding: 8px 12px;
     border: 0;
     border-radius: 4px;
+    background: rgba(255, 255, 255, .3);
+}
+.newsletter input:focus {
+    outline: none;
+}
+.newsletter input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #fff;
+}
+.newsletter input::-moz-placeholder { /* Firefox 19+ */
+    color: #fff;
+}
+.newsletter input:-ms-input-placeholder { /* IE 10+ */
+    color: #fff;
+}
+.newsletter input:-moz-placeholder { /* Firefox 18- */
+    color: #fff;
 }
 .newsletter button {
-    background-color: #e9ab15;
+    background-color: #FFFFFF;
     height: 50px;
     border: 0;
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .head.mb-5 {

@@ -6,9 +6,10 @@
         </a>
 
         @auth
-            <a href="" class="ms-auto me-2 me-sm-0 ms-lg-3 order-lg-4" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i></a>
-            @else
-            @endauth
+            <a href="" class="ms-auto me-2 me-sm-0 ms-lg-3 order-lg-4" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i> <span>{{ count(auth()->user()->unreadNotifications) }}</span> </a>
+        @else
+        
+        @endauth
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>

@@ -78,6 +78,7 @@
                                                             <option value="" hidden selected>Set banner for</option>
                                                             <option value="home" @if($banner->set_page_for == 'home') selected @endif>Home</option>
                                                             <option value="forum" @if($banner->set_page_for == 'forum') selected @endif>Forum</option>
+                                                            <option value="contact" @if($banner->set_page_for == 'contact') selected @endif>Contact Us</option>
                                                         </select>
 
                                                         @error('set_page_for')

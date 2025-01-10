@@ -35,13 +35,25 @@
                 this.editing = false;
             },
 
+            cancelEditing() {
+                location.reload();
+            }, 
+
             /**
              * Function to delete the reply.
              */
             destroy() {
-                axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
+                const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+                let id = this.attributes.id;
+                if(isConfirmed){
+                    // axios.delete(`/forum/replies/${id}`);
+                    axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
 
-                $(this.$el).fadeOut(300);
+                    $(this.$el).fadeOut(300);
+                } else {
+
+                }
+                
             },
 
             /**

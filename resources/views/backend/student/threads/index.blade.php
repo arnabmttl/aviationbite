@@ -52,7 +52,7 @@ $fileUrl = asset('frontend/images/about-us.png');
                 </div>
                 <div class="col-md-8 col-12">
                     @if ($channel->exists)
-                        <p class="title">{{ $channel->name }} Forums</p>
+                        <p class="title">{{ $channel->name }} </p>
                         <nav>
                             <ul class='tabs tabsSlider owl-carousel owl-theme'>
                                 <div class="item">

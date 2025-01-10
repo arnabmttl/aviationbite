@@ -8,19 +8,19 @@
 				<div class="footerLogo"><br>
 					<img src="https://aviationbite.com/frontend/images/logo.png" class="note-float-left" style="float: left;">
 				</div>
-				<div class="socialIcons">
+				{{-- <div class="socialIcons">
 					<a href=""><i class="fab fa-facebook-f"></i></a>
 					<a href=""><i class="fab fa-twitter"></i></a>
 					<a href=""><i class="fab fa-linkedin"></i></a>
 					<a href=""><i class="fab fa-instagram"></i></a>
-				</div>
+				</div> --}}
 			</div>
 			<div class="col-md-3 col-12">
 				<p class="title">My Account</p>
 				<div class="links">
                     @auth
-                        <a href="{{ route('dashboard') }}">My Account</a>
-                        <a href="{{ route('dashboard') }}">My Courses</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                        <a href="{{ route('contact.us') }}">Contact Us</a>
                     @else                    
                         <a href="" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                     @endauth
@@ -29,12 +29,15 @@
 			<div class="col-md-3 col-12">
 				<p class="title">Legal</p>
 				<div class="links">
-					<a href="{{ route('contact.us') }}">Contact Us</a>
 					<a href="{{ route('privacy') }}" target="_blank">Privacy Policy</a>
 					<a href="{{ route('terms') }}" target="_blank">Terms &amp; Conditions</a>
 				</div>
 			</div>
 			<form class="col-md-3 col-12 newsletter" v-on:submit="saveNewsletter">
+				<p class="title">Newsletter</p>
+				<div class="links">
+					<span>Subscribe to our newsletter</span>
+				</div>
 				<input type="email" required autocomplete="off" v-model="email_id" placeholder="Email address" >
 				<button class="btn" type="submit">Subscribe</button>
 			</form>

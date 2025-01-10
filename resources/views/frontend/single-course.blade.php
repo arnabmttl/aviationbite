@@ -16,13 +16,16 @@
                         		{{ $topic->name }},
                         	@endforeach
                         </p>
+                        {!! $course->short_description !!}
+                        <br/>
+                        {!! $course->description !!}
+                        
                         <p class="desc">
                             <span><img src="{{ asset('frontend/images/lastUpdated.svg') }}">Last Updated On: {{ $course->last_updated_on->format('d/m/Y') }}</span>
                             
                             <span><img src="{{ asset('frontend/images/chapters.svg') }}">{{ $course->chapters->count() }} Chapters</span>
                         </p>
-                        {!! $course->description !!}
-                        <br/>
+                        
                         <br/>
                     @auth
                         @if (auth()->user()->getFirstUserCourseByCourseId($course->id))
@@ -36,7 +39,7 @@
                                 <p class="title price">₹ {{ $course->price }}</p>
                             @endif
                             <a href="{{ route('order.checkout', encrypt($course->id)) }}">
-                                <button class="btn btn-dark btnLarge">Buy Now</button>
+                                <button class="btn btn-dark btnLarge">Enroll Now</button>
                             </a>
                         @endif
                     @else
@@ -46,7 +49,7 @@
                             <p class="title price">₹ {{ $course->price }}</p>
                         @endif
                         <a data-bs-toggle="modal" data-bs-target="#loginModal">
-                            <button class="btn btn-dark btnLarge">Buy Now</button>
+                            <button class="btn btn-dark btnLarge">Enroll Now</button>
                         </a>
                     @endauth
                     </div>

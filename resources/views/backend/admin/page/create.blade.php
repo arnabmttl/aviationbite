@@ -198,7 +198,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#description').summernote();
+            $('#meta_description').summernote();
         });
 
         $("#title").keyup(function(){
