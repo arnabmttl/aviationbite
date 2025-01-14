@@ -15,6 +15,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/font-awesome5/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css') }}">
+        <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.png') }}" type="image/png">
 
         <!-- Google font -->
         <link rel="preconnect" href="https://fonts.gstatic.com">

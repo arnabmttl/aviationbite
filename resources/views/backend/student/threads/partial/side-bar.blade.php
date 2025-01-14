@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('threads.search') }}" class="searchForm hide-m">
         @csrf
         <i class="fas fa-search"></i>
-        <input type="search" name="search" placeholder="Search Topics">
+        <input type="search" name="search" placeholder="Search Topics" autocomplete="off">
     </form>
     <div class="ask hide-m">
         @auth

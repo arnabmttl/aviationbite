@@ -1,3 +1,12 @@
+<!-- Include SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.css">
+
+<!-- Include jQuery -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<!-- Include SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.js"></script>
+
 <script>
     Vue.component('reply', {
         template: '#cbz-reply-template',
@@ -43,28 +52,62 @@
              * Function to delete the reply.
              */
             destroy() {
-                const isConfirmed = window.confirm('Are you sure you want to delete this item?');
-                let id = this.attributes.id;
-                if(isConfirmed){
-                    // axios.delete(`/forum/replies/${id}`);
-                    axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
+                // const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+                // let id = this.attributes.id;
+                // if(isConfirmed){
+                //     // axios.delete(`/forum/replies/${id}`);
+                //     axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
 
-                    $(this.$el).fadeOut(300);
-                } else {
+                //     $(this.$el).fadeOut(300);
+                // }
 
-                }
-                
+
+                Swal.fire({
+                    title: 'Are you sure you want to delete this item?',
+                    text: 'This action cannot be undone!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
+                        $(this.$el).fadeOut(300);
+                        Swal.fire('Deleted!', 'Your reply has been deleted.', 'success');
+                    } else {
+                        Swal.fire('Okay', 'Your reply is safe :)', 'info');
+                    }                        
+                });
             },
 
             /**
              * Function to report the reply.
              */
             report(id) {
+                if(this.reasonForReporting == null){
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Please give some reason',
+                        icon: 'warning',
+                        confirmButtonText: 'Okay',
+                        allowOutsideClick: false,  // Prevent clicking outside to close
+                        allowEscapeKey: false
+                    });
+                }
                 axios.post('{{env('APP_URL')}}forum/replies/' + id + '/flags', {
                     reason: this.reasonForReporting
                 });
 
-                alert("You have successfully reported.");
+                // alert("You have successfully reported.");
+                Swal.fire({
+                    title: 'Reported!',
+                    text: 'You have successfully reported.',
+                    icon: 'info',
+                    confirmButtonText: 'Okay',
+                    allowOutsideClick: false,  // Prevent clicking outside to close
+                    allowEscapeKey: false, 
+                    timer: 3000 // The alert will auto-close after 3 seconds
+                });
 
                 $(this.modalTarget).modal('toggle');
             },

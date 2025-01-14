@@ -423,7 +423,22 @@ a.nav-link:hover::after {
 .coursesCard .cardFooter button {
     background: #212640;
     color: #fff;
-    padding: 8px 30px;
+    padding: 8px 16px;
+}
+
+@media(max-width: 1200px) {
+    .coursesCard .cardFooter button {
+        font-size: 12px;
+    }
+}
+@media (min-width: 767px) and (max-width: 992px) {
+    .coursesCard .cardFooter {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .coursesCard .cardFooter .btn {
+        width: 100%;
+    }
 }
 
 .coursesCard,
@@ -2394,8 +2409,8 @@ label[for="remember"] {
 
     #tab2 .profileContent .contentInfo {
         grid-template-columns: 1fr 1fr;
-        grid-gap: 30px;
-        padding: 50px;
+        grid-gap: 20px;
+        padding: 20px;
     }
 
     .displayBar {
@@ -2853,4 +2868,22 @@ section.popCourses.mt-5 {
 }
 .accordion-button:not(.collapsed){
     box-shadow: inset 0 0px 0 rgb(0 0 0 / 13%);
+}
+.notification {
+    position: relative;
+}
+.notification span {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    color: #fff;
+    background: #dd0000;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    top: -10px;
+    left: auto;
+    right: -10px;
+    position: absolute;
 }

@@ -42,7 +42,7 @@ $fileUrl = asset('frontend/images/about-us.png');
                     <form method="POST" action="{{ route('threads.search') }}" class="searchForm">
                         @csrf
                         <i class="fas fa-search"></i>
-                        <input type="search" name="search" placeholder="Search Topics">
+                        <input type="search" name="search" placeholder="Search Topics" autocomplete="off">
                     </form>
 
                     <div class="ask">
@@ -118,11 +118,32 @@ $fileUrl = asset('frontend/images/about-us.png');
                                                     <div class="left">
                                                         <i class="far fa-user-circle"></i>
                                                         <p>Posted at {{ $thread->created_at }} by
-                                                        <a href="#"> {{ $thread->creator->username }} </a> </p>
+                                                        <strong>{{ $thread->creator->username }}</strong>  </p>
                                                     </div>
                                                     <div class="right">
                                                     @auth
-                                                        <img data-bs-toggle="modal" data-bs-target="#qFlaggingModal{{$thread->id}}" src="{{ asset('frontend/images/flag.svg') }}">
+
+                                                        @php
+                                                        
+                                                            $get_user_flagged_item = \App\Helper\Helper::get_user_flagged_item(auth()->user()->id,$thread->id,'App\Models\Thread');
+                                                            $data_bs_target = "#qFlaggingModal".$thread->id."";
+                                                            $data_bs_toggle="modal";
+                                                            $flagClass = "far fa-flag";
+                                                            $flagReason = "";
+                                                            if(!empty($get_user_flagged_item)){
+                                                                $flagClass = "fas fa-flag";
+                                                                $data_bs_target = "";
+                                                                $data_bs_toggle="";
+                                                                $flagReason = $get_user_flagged_item->reason;
+                                                            }
+
+                                                            
+                                                        @endphp
+                                                        
+                                                        
+                                                        
+                                                        <i data-bs-toggle="{{$data_bs_toggle}}" data-bs-target="{{$data_bs_target}}" class="{{$flagClass}}" id="flagId{{$thread->id}}" title="{{$flagReason}}"></i>
+                                                        
                                                         <!-- Question Flagging Modal -->
                                                         <div class="modal fade" id="qFlaggingModal{{$thread->id}}" tabindex="-1" aria-labelledby="qFlaggingModal{{$thread->id}}Label" aria-hidden="true">
                                                           <div class="modal-dialog modal-dialog-centered">
@@ -135,7 +156,7 @@ $fileUrl = asset('frontend/images/about-us.png');
                                                                         </div>
                                                                         <div>
                                                                             <div class="col-12 form-group">
-                                                                                <textarea class="form-control" v-model="reasonForReporting"></textarea>
+                                                                                <textarea class="form-control" v-model="reasonForReporting" required></textarea>
                                                                             </div>
                                                                             <div class="col-12 form-group">
                                                                                 <button class="form-control" v-on:click="reportQuestion({{ $thread->id }})">Report</button>
@@ -173,6 +194,12 @@ $fileUrl = asset('frontend/images/about-us.png');
 @endsection
 
 @section('page-scripts')
+
+    <!-- Include SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.css">
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.js"></script>
+
     <script>
         new Vue({
             el: '#cbz-thread-index',
@@ -186,12 +213,45 @@ $fileUrl = asset('frontend/images/about-us.png');
                  * Function to report the question.
                  */
                 reportQuestion(id) {
+                    if(this.reasonForReporting == null){
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please give some reason',
+                            icon: 'warning',
+                            confirmButtonText: 'Okay',
+                            allowOutsideClick: false,  // Prevent clicking outside to close
+                            allowEscapeKey: false
+                        });
+                    }
                     axios.post('{{env('APP_URL')}}forum/threads/' + id + '/flags', {
                         reason: this.reasonForReporting
+                    }).then((response) => {
+                        let flaggedReason = this.reasonForReporting;
+                        this.reasonForReporting = null;
+                        $('#qFlaggingModal'+id).modal('toggle');
+
+                        let msg = response.data.status
+
+                        // console.log(response.data.status)
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: msg,
+                            icon: 'success',
+                            confirmButtonText: 'Okay',
+                            allowOutsideClick: false,  // Prevent clicking outside to close
+                            allowEscapeKey: false
+                        });
+
+                        $('#flagId'+id).removeClass('far fa-flag');
+                        $('#flagId'+id).addClass('fas fa-flag');
+
+                        $('#flagId'+id).removeAttr('data-bs-toggle');
+                        $('#flagId'+id).removeAttr('data-bs-target');
+                        $('#flagId'+id).attr('title', flaggedReason);
                     });
 
-                    this.reasonForReporting = null;
-                    $('#qFlaggingModal'+id).modal('toggle');
+                    
                 },
             }
         });

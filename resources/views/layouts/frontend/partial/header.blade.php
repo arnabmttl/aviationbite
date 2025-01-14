@@ -6,7 +6,12 @@
         </a>
 
         @auth
-            <a href="" class="ms-auto me-2 me-sm-0 ms-lg-3 order-lg-4" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i> <span>{{ count(auth()->user()->unreadNotifications) }}</span> </a>
+            <a href="" class="ms-auto me-2 me-sm-0 ms-lg-3 order-lg-4 notification" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="fas fa-bell"></i> 
+                @if (count(auth()->user()->unreadNotifications) > 0)
+                <span>{{ count(auth()->user()->unreadNotifications) }}</span>     
+                @endif
+                
+            </a>
         @else
         
         @endauth

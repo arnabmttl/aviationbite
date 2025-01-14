@@ -44,6 +44,11 @@
 </style>
 @append
 
+<!-- Include SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.css">
+<!-- Include SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.js"></script>
+
 @section('content')
     <!-- BEGIN: Practice Test Show -->
     @if (!$practiceTest->is_submitted)
@@ -247,27 +252,45 @@
                 */
 
                 reportComment(id,index) {
-                    axios.post(
-                        "{{ route('report-comment') }}", 
-                    {
-                        'id': id                        
-                    }).then((response) => {
-                        console.log(response)
-                        if (response.data.status) {
-                            
-                            let comments = this.selectedQuestion.comments;
-                            for(var i = 0; i < comments.length; i++){
-                                if(comments[i].id == id){
-                                    comments[i].is_reported = 1;
+                    Swal.fire({
+                        title: 'Are you sure want to report the comment ?',
+                        text: 'This action cannot be undone!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, sure!',
+                        cancelButtonText: 'No, let it go',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(
+                                "{{ route('report-comment') }}", 
+                            {
+                                'id': id                        
+                            }).then((response) => {
+                                console.log(response)
+                                if (response.data.status) {
+                                    
+                                    let comments = this.selectedQuestion.comments;
+                                    for(var i = 0; i < comments.length; i++){
+                                        if(comments[i].id == id){
+                                            comments[i].is_reported = 1;
+                                        }
+                                    }
+                                    
+                                    
                                 }
-                            }
-                            
-                            
-                        }
-                    }).catch((error) => {
-                        this.message.failure = 'There is some problem to report the comment.'
-                        this.message.success = ''
-                    });
+                            }).catch((error) => {
+                                this.message.failure = 'There is some problem to report the comment.'
+                                this.message.success = ''
+                            });
+
+
+
+                            Swal.fire('Reported!', 'The comment has been reported.', 'success');
+                        } else {
+                            // Swal.fire('Okay', 'Your comment is safe :)', 'info');
+                        }                        
+                    })  
+                    
 
                     
                 },
@@ -276,24 +299,34 @@
                 ** Delete My Own Comment
                 */
 
-                deleteMyComment(id,index) {
-                    const isConfirmDeleteComment = window.confirm('Are you sure you want to delete the comment?');
-
-                    if(isConfirmDeleteComment){
-                        axios.post(
-                            "{{ route('delete-my-comment') }}", 
-                        {
-                            'id': id                        
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.data.status) {                            
-                                this.getComments();                            
-                            }
-                        }).catch((error) => {
-                            this.message.failure = 'There is some problem to delete the comment.'
-                            this.message.success = ''
-                        });
-                    }                     
+                deleteMyComment(id,index) {                    
+                    Swal.fire({
+                        title: 'Are you sure want to delete comment ?',
+                        text: 'This action cannot be undone!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, keep it',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(
+                                "{{ route('delete-my-comment') }}", 
+                            {
+                                'id': id                        
+                            }).then((response) => {
+                                console.log(response)
+                                if (response.data.status) {                            
+                                    this.getComments();                            
+                                }
+                            }).catch((error) => {
+                                this.message.failure = 'There is some problem to delete the comment.'
+                                this.message.success = ''
+                            });
+                            Swal.fire('Deleted!', 'Your comment has been deleted.', 'success');
+                        } else {
+                            Swal.fire('Okay', 'Your comment is safe :)', 'info');
+                        }                        
+                    })                  
                 },
 
                 /**
@@ -496,6 +529,16 @@
                         if (response.data.result) {
                             this.selectedQuestion.notes = response.data.notes;
                             this.noteOnQuestion = null;
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Your note saved successfully.',
+                                icon: 'info',
+                                confirmButtonText: 'Okay',
+                                allowOutsideClick: false,  // Prevent clicking outside to close
+                                allowEscapeKey: false, 
+                                timer: 3000 // The alert will auto-close after 3 seconds
+                            });
                         }
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'
@@ -505,23 +548,35 @@
 
                 deleteMyNote(id, index){
 
-                    const isConfirmDeleteNote = window.confirm('Are you sure you want to delete the note?');
+                    // const isConfirmDeleteNote = window.confirm('Are you sure you want to delete the note?');
 
-                    if(isConfirmDeleteNote){
-                        axios.post(
+                    Swal.fire({
+                        title: 'Are you sure want to delete note ?',
+                        text: 'This action cannot be undone!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, keep it',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(
                             "{{ route('delete-my-note') }}", 
-                        {
-                            'id': id                        
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.data.status) {                            
-                                this.getNotes();                            
-                            }
-                        }).catch((error) => {
-                            this.message.failure = 'There is some problem to report the comment.'
-                            this.message.success = ''
-                        });
-                    } 
+                            {
+                                'id': id                        
+                            }).then((response) => {
+                                console.log(response)
+                                if (response.data.status) {                            
+                                    this.getNotes();                            
+                                }
+                            }).catch((error) => {
+                                this.message.failure = 'There is some problem to delete the note.'
+                                this.message.success = ''
+                            });
+                            Swal.fire('Deleted!', 'Your note has been deleted.', 'success');
+                        } else {
+                            Swal.fire('Okay', 'Your note is safe :)', 'info');
+                        }                        
+                    });
                 },
 
                 /**
@@ -538,6 +593,16 @@
                         if (response.data.result) {
                             this.selectedQuestion.comments = response.data.comments;
                             this.commentOnQuestion = null;
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Your comment saved successfully.',
+                                icon: 'info',
+                                confirmButtonText: 'Okay',
+                                allowOutsideClick: false,  // Prevent clicking outside to close
+                                allowEscapeKey: false, 
+                                timer: 3000 // The alert will auto-close after 3 seconds
+                            });
                         }
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'
