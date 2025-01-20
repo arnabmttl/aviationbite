@@ -119,17 +119,48 @@
                 <div class="col-md-6 test-name">
                     <p class="title">{{ $chapter->name }}</p>
                 </div>
-                @if ($course->test)
+            @if ($course->test)
                 <div class="col-md-4 my-auto test-duration">
                     <p>{{ $course->test->chapters()->whereCourseChapterId($chapter->id)->sum('number_of_questions') }} Questions</p>
                 </div>
-                @else
+            @else
                 <div class="col-md-4 my-auto test-duration">
                     <p>{{count($chapter->questions)}} Questions</p>
                 </div>
-                @endif                
+            @endif
+                <div class="col-md-2 icon">
+                    <i class="fas fa-chevron-down test-chevron"></i>
+                </div>
             </div>
-            
+            <div class="panel">
+                <div class="row">
+                @foreach ($chapter->questions as $question)
+                    
+                    <div class="col-md-6 col-6">
+                        <p class="desc">
+                            <a>{{ $question->title }}</a>
+                        {{-- @auth
+                            @if (auth()->user()->getFirstUserCourseByCourseId($course->id) || $chapter->is_preview)
+                                <a href="{{ asset('/storage/'.$content->documents()->first()->url) }}" target="_blank">
+                                    Show
+                                </a>
+                            @else
+                                (Buy Course to view this content)
+                            @endif
+                        @else
+                            (Buy Course to view this content)
+                        @endauth --}}
+                        </p>
+                        <p>
+                            <!-- {!! $question->explanation !!} -->
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        {{-- <p class="desc text-end">{{ $content->duration }} Duration </p> --}}
+                    </div>
+                @endforeach
+                </div>
+            </div>
         @endforeach
         </div>
     </section>
@@ -138,23 +169,23 @@
 
 @section('page-scripts')
 	<script type="text/javascript">
-	    // var acc = document.getElementsByClassName("accordion");
-	    // var i;
+	    var acc = document.getElementsByClassName("accordion");
+	    var i;
 
-	    // for (i = 0; i < acc.length; i++) {
-	    //     acc[i].addEventListener("click", function() {
-	    //         /* Toggle between adding and removing the "active" class,
-	    //         to highlight the button that controls the panel */
-	    //         this.classList.toggle("active");
+	    for (i = 0; i < acc.length; i++) {
+	        acc[i].addEventListener("click", function() {
+	            /* Toggle between adding and removing the "active" class,
+	            to highlight the button that controls the panel */
+	            this.classList.toggle("active");
 
-	    //         /* Toggle between hiding and showing the active panel */
-	    //         var panel = this.nextElementSibling;
-	    //         if (panel.style.display === "block") {
-	    //             panel.style.display = "none";
-	    //         } else {
-	    //             panel.style.display = "block";
-	    //         }
-	    //     });
-	    // }
+	            /* Toggle between hiding and showing the active panel */
+	            var panel = this.nextElementSibling;
+	            if (panel.style.display === "block") {
+	                panel.style.display = "none";
+	            } else {
+	                panel.style.display = "block";
+	            }
+	        });
+	    }
     </script>
 @endsection

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 // Models
 use App\Models\Course;
+use App\Models\CourseType;
+use App\Models\CourseCourseType;
 
 // Services
 use App\Services\CourseService;
@@ -51,7 +53,8 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        return view('backend.admin.course.index');
+        $types = CourseType::orderBy('name')->get();
+        return view('backend.admin.course.index', compact('types'));
     }
 
     /**
@@ -62,6 +65,8 @@ class CoursesController extends Controller
     public function create()
     {
         $topics = (new TopicService)->getPluckedListOfTopicsByNameAndId();
+
+        
         
         if ($topics)
             return view('backend.admin.course.create', compact('topics'));
@@ -250,5 +255,45 @@ class CoursesController extends Controller
 
                 return redirect(route('course.index'));
         }
+    }
+
+    /**
+     * Save Types
+     **/
+    public function save_type(Request $request)
+    {
+        $params = $request->except('_token');
+        $id = $params['id'];
+        $type_ids = !empty($params['type_ids'])?$params['type_ids']:[];
+
+        $prev_types = CourseCourseType::where('course_id', $id)->get();
+
+        if(!empty($prev_types)){
+            foreach($prev_types as $type){
+                if(!in_array($type->type_id, $type_ids)){
+                    CourseCourseType::where('course_id', $id)->where('type_id', $type->type_id)->delete();
+                }
+            }
+        }
+
+        if(!empty($type_ids)){
+            foreach($type_ids as $type){
+                $checkExist = CourseCourseType::where('course_id', $id)->where('type_id', $type)->first();
+                if(empty($checkExist)){
+                    CourseCourseType::insert([
+                        'course_id' => $id,
+                        'type_id' => $type
+                    ]);
+                }
+                
+            }
+        }
+
+
+
+        Session::flash('success', 'Saved successfully.');
+        return redirect(route('course.index'));
+
+        
     }
 }

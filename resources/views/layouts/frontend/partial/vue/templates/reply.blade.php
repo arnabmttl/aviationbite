@@ -18,7 +18,7 @@
             <div class="cardFooter">
                 <div class="left">
                     <i class="far fa-user-circle"></i>
-                    <p> <span v-text="ago"></span> by <strong>  <a href= "#"> @{{ attributes.owner.username }}</strong> </a></p>
+                    <p> <span v-text="ago"></span> by <strong>  @{{ attributes.owner.username }}</strong> </p>
                     @auth
                     <div class="right">
                         <img data-bs-toggle="modal" :data-bs-target="modalTarget" src="{{ asset('frontend/images/flag.svg') }}">

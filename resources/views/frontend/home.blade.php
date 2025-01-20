@@ -212,15 +212,9 @@
                             <li>Updated question bank</li>
                             <li>Support all devices</li>
                             <li>User-friendly interface.</li>
-                        </ul>
-                        
-                        @foreach($menuItems as $item)
-                            @if ($item->children->count())
-                                
-                            @else                                
-                                <a href="{{ $item->redirection_url }}" class="btn btnBlue">Know More</a>
-                            @endif
-                        @endforeach
+                        </ul>                                                       
+                        <a href="{{ route('all-course') }}" class="btn btnBlue">Know More</a>
+                           
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">

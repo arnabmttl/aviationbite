@@ -1,100 +1,54 @@
 @extends('layouts.frontend.app')
+
 @section('title', 'Courses')
+
 @section('content')
     <!-- BEGIN: Courses -->
     <!-- Courses section -->
-    <section class="about testSeries mt-5">
+    <section class="about courses mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
                     <div class="aboutText">
-                        <p class="title">Courses</p>
-                        <div class="coursemain">
-    <h2>Courses</h2>
-    <h4>Comprehensive courses designed to elevate your aviation career. </h4> 
-    <p>Experience seamless preparation for your aviation exams with our advanced online test platform. Designed specifically for pilots, our platform offers realistic, exam-style questions that simulate actual testing conditions. With 24/7 access, you can study at your own pace, track your progress, and identify areas for improvement . Whether you're preparing for licensing exams or enhancing your aviation knowledge, our online tests provide a reliable and effective way to ensure you're ready to soar to success.</p>
-
-    <ul>
-        <li>Expert-Led Instruction</li>
-        <li>Interactive Learning Materials </li>
-        <li>Mock Exams with Times Assessments</li>
-        <li>Community Discussions and Q&A</li>
-    </ul>
-</div>
-
-<style>
-section.about.testSeries.mt-5 {
-    margin-top: 0  !important;
-    padding: 60px 0;
-}
-section.about.testSeries.mt-5 .aboutImg img {
-    border-radius: 12px;
-}
-section.about.testSeries.mt-5 .aboutText .title, section.about.testSeries.mt-5 .aboutText a{
-    display: none;
-}
-.coursemain h2 {
-    font-size: 80px;
-    color: #005eb8;
-    font-weight: 600;
-}
-.coursemain h4 {
-    color: #000;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-.coursemain p {
-    color: #000;
-    font-weight: 500;
-}
-.coursemain ul li {
-    color: #000;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-@media(max-width: 767px) {
-.coursemain h2 {
-    font-size: 40px;
-}
-section.about.testSeries.mt-5 {
-    margin-top: 0  !important;
-    padding: 20px 0;
-}
-}
-</style>
-                        
+                        <p class="title">Our Courses</p>
+                        <p class="desc">Welcome to AVIATIONBITE, here we offer a comprehensive course specially designed for the pilot examination. Our course is tailored to provide students with a supportive learning environment and a comprehensive test series to excel in their career as a commercial pilot. With a focus on practice questions and extensive learning resources, we are committed to helping students achieve their aviation goals.</p>
+                        <p class="desc">Key Features:</p>
+                        <ul>
+                            <li>Up-to-Date Database: Our course includes an up-to-date database ensuring that students have access to the latest information.</li>
+                            <li>Comprehensive Exam Coverage: Our course covers all aspects of the CPL syllabus, including on-demand examinations and regular examinations.</li>
+                            <li>Collaborative Learning: Our platform offers self-paced practice and collaborative learning through comments, facilitating the sharing of experiences and knowledge among users.</li>
+                            <li>Previously Asked Questions: Our course covers previously asked questions, providing students with an understanding of the types of questions that have appeared on the exam in the past.</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="aboutImg">
-                    <img src="{{ asset('frontend/images/courses-img.png') }}">
+                        <img src="{{ asset('frontend/images/courses-img.png') }}">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-    
     <!-- Testimonial section starts-->
-    <section class="testimonial coursesAbout p-5">
+    <section class="testimonial coursesAbout p-5 mt-5">
         <div class="container">
             <p class="desc" style="font-size: 26px;">Elevate your pilot training with AviationBite</p>
         </div>
-    </section> 
+    </section>
     <!-- Testimonial section ends -->
     <!-- Popular Courses -->
-    @forelse ($types as $type)    
     <section class="popCourses mt-5">
         <div class="container">
             <div class="head mb-5">
                 <div class="title">
-                    <p>{{$type->name}}</p>
+                    <p>Popular Courses</p>
+                </div>
+                <div class="desc">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </div>
             </div>
             <div class="popCoursesContent popCoursesSlider  owl-carousel owl-theme">
-            @foreach ($type->courses as $course)
+            @foreach ($courses as $course)
                 <div class="item">
                     <div class="coursesCard">
                         <p class="title">{{ $course->name }}</p>
@@ -118,10 +72,6 @@ section.about.testSeries.mt-5 {
             </div>
         </div>
     </section>
-    @empty
-        
-    @endforelse
-
     <section class="faqs mt-5 mb-5">
         <div class="container">
             <div class="head mb-5">

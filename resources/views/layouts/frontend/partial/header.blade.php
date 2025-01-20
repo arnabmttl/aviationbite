@@ -23,10 +23,10 @@
                 <li class="nav-item">
                     <a class="nav-link {{ \Request::is('forum') ? 'active' : '' }}" href="{{ route('threads.index') }}">Forum</a>
                 </li>
-               {{--  <li class="nav-item">
-                    <a class="nav-link {{ \Request::is('courses') ? 'active' : '' }}" href="{{ route('courses') }}">Courses</a>
-                </li> --}}
-                @foreach($menuItems as $item)
+                <li class="nav-item">
+                    <a class="nav-link {{ \Request::is('all-course') ? 'active' : '' }}" href="{{ route('all-course') }}">Courses</a>
+                </li>
+                {{-- @foreach($menuItems as $item)
                     @if ($item->children->count())
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{{ $item->redirection_url }}" id="navbarDropdown{{ $item->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +43,7 @@
                             <a class="nav-link" href="{{ $item->redirection_url }}">{{ $item->title }}</a>
                         </li>
                     @endif
-                @endforeach
+                @endforeach --}}
             </ul>
             <div class="d-flex">
                 @auth

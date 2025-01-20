@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\QuestionsController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\FavouritesController;
 use App\Http\Controllers\Backend\CourseChaptersController;
+use App\Http\Controllers\Backend\CourseTypeController;
 use App\Http\Controllers\Frontend\PracticeTestsController;
 use App\Http\Controllers\Backend\CourseChapterContentsController;
 use App\Http\Controllers\Backend\MenuAndFooterController;
@@ -76,6 +77,10 @@ Route::prefix('/backend')->group(function () {
     Route::get('/course-excel', [CoursesController::class, 'fetchCourseExcel'])->name('course.excel.upload');
     Route::post('/course-excel', [CoursesController::class, 'uploadCourseExcel']);
 
+    Route::post('/save-type', [CoursesController::class, 'save_type'])->name('course.save-type');
+
+    
+
     /**
      * Chapter related routes.
      */
@@ -88,6 +93,14 @@ Route::prefix('/backend')->group(function () {
      */
     Route::get('/course/{course}/chapter/content', [CourseChapterContentsController::class, 'index'])->name('show');
     Route::get('/course/{course}/chapter/{chapter}/content', [CourseChapterContentsController::class, 'index'])->name('content.index');
+
+    /*
+    ** Course Type Route 
+    */
+
+    Route::get('/course-type/all/{id?}', [CourseTypeController::class, 'index'])->name('course-type.index');
+    Route::post('/course-type/create', [CourseTypeController::class, 'create'])->name('course-type.create');
+    Route::post('/course-type/update/{id}', [CourseTypeController::class, 'update'])->name('course-type.update');
 
     /**
     *Content Create route
@@ -330,6 +343,8 @@ Route::get('/course/{course:slug}', [FrontendController::class, 'courseBySlug'])
 Route::post('/enquiry', [FrontendController::class, 'enquiry'])->name('enquiry');
 
 Route::post('/save-newsletter', [FrontendController::class, 'save_newsletter'])->name('save-newsletter');
+
+Route::get('/all-course', [FrontendController::class, 'courses'])->name('all-course');
 
 /**
  * Practice Test Routes

@@ -62,6 +62,13 @@
                 </a>
             </li>
 
+            <li class="{{ \Request::is('backend/course-type/*') ? 'active' : '' }}  nav-item">
+                <a class="d-flex align-items-center" href="{{ route('course-type.index') }}">
+                    <i data-feather="video"></i>
+                    <span class="menu-title text-truncate" data-i18n="Courses">Course Type</span>
+                </a>
+            </li>
+
             <li class="{{ \Request::is('backend/course') || \Request::is('backend/course/*') ? 'active' : '' }} nav-item">
                 <a class="d-flex align-items-center" href="{{ route('course.index') }}">
                     <i data-feather="video"></i>

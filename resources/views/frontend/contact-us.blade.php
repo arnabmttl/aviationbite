@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-10 contact-location-text">
                             <h5>Phone</h5>
-                            <p>+91 90505 66448</p>
+                            <p><a href="tel:+919050566448">+91 90505 66448</a></p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-10 contact-location-text">
                             <h5>Mail Address</h5>
-                            <p>support@aviationbite.com</p>
+                            <p><a href="mailto:support@aviationbite.com">support@aviationbite.com</a></p>
                         </div>
                     </div>
                 </div>

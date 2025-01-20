@@ -71,11 +71,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                             @foreach(request()->user()->createdCourses as $index => $course)
+                            @php
+                                $type_ids = array();
+                                if(!empty($course->types)){
+                                    foreach($course->types as $type){
+                                        $type_ids[] = $type->id;
+                                    }
+                                }
+                            @endphp
                                 <tr>
                                     <th scope="row">
                                         {{ $index + 1 }}
                                     </th>
+                                    {{-- {{ dd($course->types) }} --}}
                                     <td>
                                         {{ $course->name }}
                                     </td>
@@ -98,6 +108,11 @@
                                                     <i data-feather="edit-2" class="mr-50"></i>
                                                     <span>Edit</span>
                                                 </a>
+                                                
+                                                <a href="#"  class="dropdown-item" data-toggle="modal" data-target="#exampleModal{{$course->id}}">
+                                                    <i data-feather="edit-2" class="mr-50"></i>
+                                                    <span>Type</span>
+                                                </a>
                                                 <a class="dropdown-item" href="{{ route('chapter.index', $course->id) }}">
                                                     <i data-feather="eye" class="mr-50"></i>
                                                     <span>Show</span>
@@ -106,6 +121,47 @@
                                                     <i data-feather="eye" class="mr-50"></i>
                                                     <span>Test Details</span>
                                                 </a>
+                                            </div>
+                                            <div class="modal fade" id="exampleModal{{$course->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">{{$course->name}}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{{ route('course.save-type') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$course->id}}">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                @forelse ($types as $type)  
+                                                                
+                                                                @php
+                                                                    $checked = "";
+                                                                    if(in_array($type->id,$type_ids)){
+                                                                        $checked = "checked";
+                                                                    }
+                                                                @endphp
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group form-check">
+                                                                        <input type="checkbox" class="form-check-input" id="type{{$type->id}}" value="{{$type->id}}" name="type_ids[]" {{$checked}}>
+                                                                        <label class="form-check-label" for="type{{$type->id}}">{{$type->name}}</label>
+                                                                    </div>
+                                                                </div>
+                                                                @empty
+                                                                    
+                                                                @endforelse
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -120,4 +176,6 @@
         <!-- Hoverable rows end -->
     </div>
 </div>
+
+
 @endsection

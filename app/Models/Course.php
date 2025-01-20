@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\CourseType;
 
 // Carbon
 use Carbon\CarbonInterval;
@@ -234,4 +236,15 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\UserCourse');
     }
+
+    /**
+     * The types that belong to the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function types(): BelongsToMany
+    {
+        return $this->belongsToMany(CourseType::class, 'course_course_type',  'course_id', 'type_id');
+    }
+
 }

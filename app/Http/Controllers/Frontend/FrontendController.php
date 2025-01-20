@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 // Models
 use App\Models\Course;
+use App\Models\CourseType;
 use App\Models\Page;
 use App\Models\Banner;
 use App\Models\Thread;
@@ -104,9 +105,13 @@ class FrontendController extends Controller
     public function courses()
     {
         $courses = (new CourseService)->getAllActiveCourses();
-        // dd($courses);
 
-        return view('frontend.courses', compact('courses'));
+        $types = CourseType::with('courses')->get();
+
+        // dd($types);
+        
+
+        return view('frontend.courses', compact('courses','types'));
     }
 
     /**

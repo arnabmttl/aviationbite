@@ -120,7 +120,7 @@ class ThreadsController extends Controller
         return view('backend.student.threads.show', [
             'thread' => $thread,
             'channelId' => $channelId,
-            'replies' => $thread->replies()->paginate(10)
+            'replies' => $thread->replies()->paginate(5)
         ]);
     }
 
