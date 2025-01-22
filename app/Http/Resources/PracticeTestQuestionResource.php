@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 // Resources
 use App\Http\Resources\QuestionResource;
 use App\Models\Comment;
+use App\Models\Question;
 use App\Models\Note;
 
 class PracticeTestQuestionResource extends JsonResource
@@ -30,7 +31,9 @@ class PracticeTestQuestionResource extends JsonResource
             'time_taken' => $this->time_taken,
             'question_pk_id' => encrypt($this->question_id),
             'comments' => Comment::where('question_id',  $this->question_id)->orderBy('id','desc')->get(),
-            'notes' => Note::where('question_id',  $this->question_id)->where('user_id', \Auth::user()->id)->orderBy('id', 'desc')->get()
+            'notes' => Note::where('question_id',  $this->question_id)->where('user_id', \Auth::user()->id)->orderBy('id', 'desc')->get(),
+            'question_master_comment_count' => Question::where('id', $this->question_id)->whereNotNull('practice_test_comment')->count(),
+            'count_comments' => Comment::where('question_id',  $this->question_id)->count()
         ];
     }
 }

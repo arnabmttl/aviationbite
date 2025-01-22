@@ -42,6 +42,7 @@ use App\Models\TakeTestQuestion;
 use App\Models\QuestionOption;
 use App\Models\PracticeTest;
 use App\Models\Comment;
+use App\Models\Question;
 use App\Models\Note;
 
 // Exception
@@ -319,6 +320,7 @@ class APIController extends Controller
         if (($practiceTestQuestion = $testService->getFirstPracticeTestQuestionByIdAndUserId($request->question_id, $request->user_id)) && ($testService->createCommentByPracticeTestQuestionObject($request->all(), $practiceTestQuestion))) {
             $data['result'] = true;
             $data['comments'] = $practiceTestQuestion->question->comments;
+
         } else {
             $data['result'] = false;
         }

@@ -46,9 +46,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 hide-d">
-                    <form class="searchForm">
+                    {{-- <form class="searchForm">
                         <i class="fas fa-search"></i>
                         <input type="search" name="search" placeholder="Search Topics">
+                    </form> --}}
+                    <form method="POST" action="{{ route('threads.search') }}" class="searchForm">
+                        @csrf
+                        <i class="fas fa-search"></i>
+                        <input type="search" name="search" placeholder="Search Topics" autocomplete="off">
                     </form>
                     <div class="ask">
                         <button><i class="fas fa-plus"></i> Ask A Question </button>

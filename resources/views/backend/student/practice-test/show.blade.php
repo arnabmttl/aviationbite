@@ -41,6 +41,11 @@
     .answerForumCard div.right {
         flex: 0 0 auto;
     }
+
+    .item.notification span {
+        top: 0;
+        left: 0;
+    }
 </style>
 @append
 
@@ -179,6 +184,8 @@
                  */
                 commentOnQuestion: null,
                 noteOnQuestion: null,
+
+                totalCommentsOnQuestion: 0,
             },
 
             filters: {
@@ -489,6 +496,7 @@
                     }).then((response) => {
                         if (response.data.result) 
                             this.selectedQuestion.comments = response.data.comments;
+
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'
                         this.message.success = ''
@@ -603,6 +611,9 @@
                                 allowEscapeKey: false, 
                                 timer: 3000 // The alert will auto-close after 3 seconds
                             });
+
+                            this.selectedQuestion.count_comments = response.data.comments.length;
+                            
                         }
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'

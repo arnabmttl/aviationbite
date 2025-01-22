@@ -3,8 +3,11 @@
         <div class="item">
             <li class='active' data-tab-id='tab1'><i class="fas fa-caret-right"></i> Question</li>
         </div>
-        <div class="item">
+        <div class="item notification">
             <li data-tab-id='tab3'><i class="fas fa-comments"></i> Comments</li>
+            
+            <span v-if="(selectedQuestion?.count_comments + selectedQuestion?.question_master_comment_count) > 0" v-text="(selectedQuestion?.count_comments + selectedQuestion?.question_master_comment_count)"></span>
+            
         </div>
         <div class="item">
             <li data-tab-id='tab5'><i class="fas fa-pencil-alt"></i> Explanation</li>
