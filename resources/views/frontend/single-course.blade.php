@@ -73,7 +73,7 @@
                         </div>
                     @else
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/test-card-icon.svg') }}" alt="icon">
+                            <img src="{{ asset('frontend/images/logo.png') }}" alt="icon">
                         </div>
                     @endif
                         <p class="title">{{ $course->number_of_tests }} Test Included</p>
@@ -127,7 +127,15 @@
                 <div class="col-md-4 my-auto test-duration">
                     <p>{{count($chapter->questions)}} Questions</p>
                 </div>
-                @endif                
+                @endif 
+                <div class="col-md-2 icon">
+                    <i class="fas fa-chevron-down test-chevron"></i>
+                </div>               
+            </div>
+            <div class="panel">
+                <div class="row">
+                    {!! $chapter->description !!} 
+                </div>
             </div>
             
         @endforeach
@@ -138,23 +146,23 @@
 
 @section('page-scripts')
 	<script type="text/javascript">
-	    // var acc = document.getElementsByClassName("accordion");
-	    // var i;
+	    var acc = document.getElementsByClassName("accordion");
+	    var i;
 
-	    // for (i = 0; i < acc.length; i++) {
-	    //     acc[i].addEventListener("click", function() {
-	    //         /* Toggle between adding and removing the "active" class,
-	    //         to highlight the button that controls the panel */
-	    //         this.classList.toggle("active");
+	    for (i = 0; i < acc.length; i++) {
+	        acc[i].addEventListener("click", function() {
+	            /* Toggle between adding and removing the "active" class,
+	            to highlight the button that controls the panel */
+	            this.classList.toggle("active");
 
-	    //         /* Toggle between hiding and showing the active panel */
-	    //         var panel = this.nextElementSibling;
-	    //         if (panel.style.display === "block") {
-	    //             panel.style.display = "none";
-	    //         } else {
-	    //             panel.style.display = "block";
-	    //         }
-	    //     });
-	    // }
+	            /* Toggle between hiding and showing the active panel */
+	            var panel = this.nextElementSibling;
+	            if (panel.style.display === "block") {
+	                panel.style.display = "none";
+	            } else {
+	                panel.style.display = "block";
+	            }
+	        });
+	    }
     </script>
 @endsection

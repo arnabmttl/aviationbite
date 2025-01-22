@@ -1092,7 +1092,7 @@ ul.tabsSlider {
 }
 
 .testCard .icon img {
-    width: 80px;
+    width: 100%;
 }
 
 .testCard .title {

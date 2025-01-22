@@ -232,7 +232,7 @@
                                                                     'id' => 'special_price',
                                                                     'class' => 'form-control '.($errors->has('special_price') ? 'is-invalid':''),
                                                                     'placeholder' => 'Special Price',
-                                                                    'required' => true,
+                                                                    'required' => false,
                                                                     'step' => 1,
                                                                     'aria-describedby' => 'special_price',
                                                                     'tabindex' => '8'
@@ -335,7 +335,7 @@
                                                                     'placeholder' => 'Video URL',
                                                                     'aria-describedby' => 'video_url',
                                                                     'tabindex' => '12',
-                                                                    'required' => true
+                                                                    'required' => false
                                                                 ]
                                                             )
                                                         !!}

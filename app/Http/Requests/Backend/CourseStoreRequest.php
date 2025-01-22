@@ -32,7 +32,7 @@ class CourseStoreRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:courses',
             'price' => 'required|numeric|min:0',
-            'special_price' => 'required|numeric|lt:price',
+            'special_price' => 'nullable|numeric|lt:price',
             'valid_for' => 'required|numeric|min:1',
             'is_active' => 'required|in:0,1',
             'number_of_tests' => 'required|numeric|min:0',
