@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Storage;
 // Exception
 use Exception;
 
+// Model
+use App\Models\Question;
+use App\Models\QuestionOption;
+
 class QuestionService extends BaseService
 {
 	/**
@@ -220,6 +224,48 @@ class QuestionService extends BaseService
 
 			return false;
 		}
+	}
+
+	/**
+	 * Create Question CSV
+	 **/
+	public function createQuestionCSV($input)
+	{
+		// dd($input);
+		try {
+			$questionInput['question_id'] = $input['question_id'];
+			$questionInput['course_chapter_id'] = $input['course_chapter_id'];
+			$questionInput['difficulty_level_id'] = $input['difficulty_level_id'];
+			$questionInput['question_type_id'] = $input['question_type_id'];
+			$questionInput['previous_years'] = $input['previous_years'];
+			$questionInput['title'] = $input['title'];
+			$questionInput['description'] = $input['description'];
+			$questionInput['explanation'] = $input['explanation'];
+
+			$question = Question::create($questionInput);
+
+			foreach ($input['option_title'] as $key => $value) {
+				/**
+				 * Segregate option related input and create option.
+				 * IF option is created successfully
+				 * THEN move to next option
+				 * ELSE delete the newly created question and return false.
+				 */
+				$optionInput['title'] = $value;
+				$optionInput['is_correct'] = $input['is_correct'][$key];
+
+				$this->questionOptionRepository->createQuestionOptionByQuestionObject($optionInput, $question);
+				
+			}
+
+			return $question;
+		} catch (Exception $e) {
+			Log::channel('question')->error('[QuestionService:createQuestionCSV] Question not created because an exception occurred: ');
+			Log::channel('question')->error($e->getMessage());
+
+			return false;
+		}
+		
 	}
 
 	/**

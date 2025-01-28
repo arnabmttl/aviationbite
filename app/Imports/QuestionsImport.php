@@ -17,6 +17,9 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 
 // Support Facades
 use Illuminate\Support\Facades\Log;
+// Model
+use App\Models\Question;
+use App\Models\QuestionOption;
 
 class QuestionsImport implements ToModel, WithHeadingRow, WithValidation
 {
@@ -53,7 +56,8 @@ class QuestionsImport implements ToModel, WithHeadingRow, WithValidation
                 $questionInput['option_title'][4] = $row['option_4_title'];
                 $questionInput['is_correct'][4] = ($row['option_4_is_correct'] == 'Yes') ? 1 : 0;
 
-                if ($question = (new QuestionService)->createQuestion($questionInput))
+                // if ($question = (new QuestionService)->createQuestion($questionInput))
+                if ($question = (new QuestionService)->createQuestionCSV($questionInput))                
                     return $question;
                 else
                     return null;
@@ -71,7 +75,7 @@ class QuestionsImport implements ToModel, WithHeadingRow, WithValidation
             'chapter_name' => 'required|string|max:255|exists:course_chapters,name',
             'difficulty_level' => 'required|in:Beginner,Intermediate,Advance',
             'question_type' => 'required|in:Numerical,Theoratical,Pictorial',
-            'previous_years' => 'nullable|string|max:255',
+            'previous_years' => 'nullable|max:255',
             'question' => 'required|string',
             'description' => 'nullable|string',
             'explanation' => 'nullable|string',

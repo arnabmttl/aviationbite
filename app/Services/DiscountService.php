@@ -109,14 +109,23 @@ class DiscountService extends BaseService
 	 */
 	public function updateDiscountByObject($update, $discount)
 	{
+		// dd($update);
 		try {
             /**
              * Save the topics in temporary variable for attaching with the discount after creation.
              * And unset the 'students' and 'courses' as that is not to be inserted in database.
              */
-            $students = $update['students'];
-            $courses = $update['courses'];
-            unset($update['students'], $update['courses']);
+            $students = isset($update['students'])?$update['students']:array();
+            $courses = isset($update['courses'])?$update['courses']:array();
+			if(!empty($students)){
+				unset($update['students']);
+			}
+			if(!empty($courses)){
+				unset($update['courses']);
+			}
+            // unset($update['students'], $update['courses']);
+
+			// dd($students);
 
             /**
              * If discount is updated succesfully then do the further processing 
@@ -138,7 +147,7 @@ class DiscountService extends BaseService
 	            /**
                  * Associate courses (if any) with the discount.
                  */
-                if ($students)
+                if ($courses)
 	                $discount->courses()->attach(
 	                	$courses,
 	                	[
