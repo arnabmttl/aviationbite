@@ -67,15 +67,28 @@
                     text: 'This action cannot be undone!',
                     icon: 'warning',
                     showCancelButton: true,
+                    confirmButtonColor: "#005eb8",
                     confirmButtonText: 'Yes, delete it!',
                     cancelButtonText: 'No, keep it',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         axios.delete('{{env('APP_URL')}}forum/replies/' + this.attributes.id);
                         $(this.$el).fadeOut(300);
-                        Swal.fire('Deleted!', 'Your reply has been deleted.', 'success');
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Your reply has been deleted.',
+                            icon: 'success',
+                            confirmButtonColor: "#005eb8",
+                            confirmButtonText: 'OK',
+                        });
                     } else {
-                        Swal.fire('Okay', 'Your reply is safe :)', 'info');
+                        Swal.fire({
+                            title: 'Okay',
+                            text: 'Your reply is safe :)',
+                            icon: 'info',
+                            confirmButtonColor: "#005eb8",
+                            confirmButtonText: 'OK',
+                        });
                     }                        
                 });
             },
@@ -89,6 +102,7 @@
                         title: 'Error!',
                         text: 'Please give some reason',
                         icon: 'warning',
+                        confirmButtonColor: "#005eb8",
                         confirmButtonText: 'Okay',
                         allowOutsideClick: false,  // Prevent clicking outside to close
                         allowEscapeKey: false
@@ -103,6 +117,7 @@
                     title: 'Reported!',
                     text: 'You have successfully reported.',
                     icon: 'info',
+                    confirmButtonColor: "#005eb8",
                     confirmButtonText: 'Okay',
                     allowOutsideClick: false,  // Prevent clicking outside to close
                     allowEscapeKey: false, 

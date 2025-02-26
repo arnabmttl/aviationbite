@@ -33,9 +33,9 @@ class ThreadsController extends Controller
     {
         if (request()->has('subscribed') && auth()->check()) {
             if ($channel->exists) {
-                $threads = request()->user()->subscribedThreads()->where('channel_id', $channel->id)->paginate(5);
+                $threads = request()->user()->subscribedThreads()->where('channel_id', $channel->id)->orderBy('id','desc')->paginate(5);
             } else {
-                $threads = request()->user()->subscribedThreads()->paginate(5);
+                $threads = request()->user()->subscribedThreads()->orderBy('id','desc')->paginate(5);
             }
         } else {
             $threads = $this->getThreads($channel, $filters);
@@ -96,7 +96,7 @@ class ThreadsController extends Controller
         ]);
 
         $search = $request->search;
-        $threads = Thread::where('title', 'like', '%'.$search.'%')->paginate(5);
+        $threads = Thread::where('title', 'like', '%'.$search.'%')->orderBy('id','desc')->paginate(5);
 
         $banners = Banner::where('set_page_for', 'forum')->get();
 
@@ -120,7 +120,7 @@ class ThreadsController extends Controller
         return view('backend.student.threads.show', [
             'thread' => $thread,
             'channelId' => $channelId,
-            'replies' => $thread->replies()->paginate(5)
+            'replies' => $thread->replies()->orderBy('id', 'desc')->paginate(5)
         ]);
     }
 

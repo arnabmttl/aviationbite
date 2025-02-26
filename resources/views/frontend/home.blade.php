@@ -437,6 +437,7 @@
                             title: 'Error!',
                             text: 'Please give some reason',
                             icon: 'warning',
+                            confirmButtonColor: "#005eb8",
                             confirmButtonText: 'Okay',
                             allowOutsideClick: false,  // Prevent clicking outside to close
                             allowEscapeKey: false
@@ -457,6 +458,7 @@
                             title: 'Success!',
                             text: msg,
                             icon: 'success',
+                            confirmButtonColor: "#005eb8",
                             confirmButtonText: 'Okay',
                             allowOutsideClick: false,  // Prevent clicking outside to close
                             allowEscapeKey: false

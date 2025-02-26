@@ -486,7 +486,13 @@ class APIController extends Controller
     {
         $id = $request->id;
         Comment::where('id', $id)->delete();
-        $data = array('status' => true);
+        
+        $user_id = \Crypt::decrypt($request->user_id);
+        $question_id = \Crypt::decrypt($request->question_id);
+        $comments = Comment::where('user_id', $user_id)->where('question_id', $question_id)->orderBy('id', 'desc')->get();
+        $data['status'] = true;
+        $data['comments'] = $comments;
+        //  = array('status' => true);
         return response()->json($data, 200);
     }
 

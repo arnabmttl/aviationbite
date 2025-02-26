@@ -264,6 +264,7 @@
                         text: 'This action cannot be undone!',
                         icon: 'warning',
                         showCancelButton: true,
+                        confirmButtonColor: "#005eb8",
                         confirmButtonText: 'Yes, sure!',
                         cancelButtonText: 'No, let it go',
                     }).then((result) => {
@@ -312,6 +313,7 @@
                         text: 'This action cannot be undone!',
                         icon: 'warning',
                         showCancelButton: true,
+                        confirmButtonColor: "#005eb8",
                         confirmButtonText: 'Yes, delete it!',
                         cancelButtonText: 'No, keep it',
                     }).then((result) => {
@@ -319,11 +321,14 @@
                             axios.post(
                                 "{{ route('delete-my-comment') }}", 
                             {
-                                'id': id                        
+                                'id': id,
+                                'question_id': this.selectedQuestion.question_id,
+                                'user_id': this.userId                    
                             }).then((response) => {
                                 console.log(response)
                                 if (response.data.status) {                            
-                                    this.getComments();                            
+                                    this.getComments(); 
+                                    
                                 }
                             }).catch((error) => {
                                 this.message.failure = 'There is some problem to delete the comment.'
@@ -494,8 +499,11 @@
                         'question_id': this.selectedQuestion.question_id,
                         'user_id': this.userId,
                     }).then((response) => {
-                        if (response.data.result) 
+                        if (response.data.result) {
                             this.selectedQuestion.comments = response.data.comments;
+                            this.selectedQuestion.count_comments = response.data.comments.length;
+                        }
+                            
 
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'
@@ -542,6 +550,7 @@
                                 title: 'Success!',
                                 text: 'Your note saved successfully.',
                                 icon: 'info',
+                                confirmButtonColor: "#005eb8",
                                 confirmButtonText: 'Okay',
                                 allowOutsideClick: false,  // Prevent clicking outside to close
                                 allowEscapeKey: false, 
@@ -563,6 +572,7 @@
                         text: 'This action cannot be undone!',
                         icon: 'warning',
                         showCancelButton: true,
+                        confirmButtonColor: "#005eb8",
                         confirmButtonText: 'Yes, delete it!',
                         cancelButtonText: 'No, keep it',
                     }).then((result) => {
@@ -606,6 +616,7 @@
                                 title: 'Success!',
                                 text: 'Your comment saved successfully.',
                                 icon: 'info',
+                                confirmButtonColor: "#005eb8",
                                 confirmButtonText: 'Okay',
                                 allowOutsideClick: false,  // Prevent clicking outside to close
                                 allowEscapeKey: false, 

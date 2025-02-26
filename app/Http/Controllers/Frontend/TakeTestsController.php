@@ -58,7 +58,7 @@ class TakeTestsController extends Controller
     public function create(Course $course)
     {
         $course_test = CourseTest::where('course_id',$course->id)->first();
-
+        // dd($course);
         if(!empty($course_test)){
             $course_test_chapters = CourseTestChapter::where('course_test_id',$course_test->id)->where('number_of_questions', '!=', 0)->get()->toArray();
             // dd($course_test_chapters);
@@ -98,13 +98,11 @@ class TakeTestsController extends Controller
                 return redirect(route('take.test.show', [$course->slug, encrypt($take_test_id)]));
                 
             } else {
-                Session::flash('failure', 'No course test details added. Please talk to system administrator');
-                return redirect(route('dashboard'));
+                return redirect(route('dashboard'))->with('toastrInfo', 'No course test details added. Please talk to system administrator');
             }
 
         } else {
-            Session::flash('failure', 'No course test details added. Please talk to system administrator');
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))->with('toastrInfo', 'No course test details added. Please talk to system administrator');
         }
 
     }

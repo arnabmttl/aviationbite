@@ -24,6 +24,7 @@
     <div class='content-section'>
         <div id='tab1' class='content active'>
             <p style="color: #000; font-weight: 500;">@{{ selectedQuestion?.question?.title }}</p>
+            <p v-if="selectedQuestion?.question?.description" style="color: #000; font-weight: 500;">@{{ selectedQuestion?.question?.description }}</p>
             <div class="forumCardCont">
                 <div v-if="selectedQuestion?.question?.image" class="col-12">
                     <img :src="selectedQuestion.question.image">
@@ -94,9 +95,7 @@
             </div>
         </div>
         <div id="tab5" class="content">
-            <div v-if="selectedQuestion?.question_option_id">
-                <span v-html="selectedQuestion?.question?.explanation"></span>
-            </div>
+            <span v-if="selectedQuestion?.question?.explanation" v-html="selectedQuestion?.question?.explanation"></span>
         </div>
         <div id="tab6" class="content">
             <div class="content-section">

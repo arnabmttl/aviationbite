@@ -156,7 +156,7 @@ $fileUrl = asset('frontend/images/about-us.png');
                                                                         </div>
                                                                         <div>
                                                                             <div class="col-12 form-group">
-                                                                                <textarea class="form-control" v-model="reasonForReporting" required></textarea>
+                                                                                <textarea class="form-control" v-model="reasonForReporting"></textarea>
                                                                             </div>
                                                                             <div class="col-12 form-group">
                                                                                 <button class="form-control" v-on:click="reportQuestion({{ $thread->id }})">Report</button>
@@ -213,16 +213,6 @@ $fileUrl = asset('frontend/images/about-us.png');
                  * Function to report the question.
                  */
                 reportQuestion(id) {
-                    if(this.reasonForReporting == null){
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Please give some reason',
-                            icon: 'warning',
-                            confirmButtonText: 'Okay',
-                            allowOutsideClick: false,  // Prevent clicking outside to close
-                            allowEscapeKey: false
-                        });
-                    }
                     axios.post('{{env('APP_URL')}}forum/threads/' + id + '/flags', {
                         reason: this.reasonForReporting
                     }).then((response) => {
@@ -237,8 +227,10 @@ $fileUrl = asset('frontend/images/about-us.png');
                         Swal.fire({
                             title: 'Success!',
                             text: msg,
-                            icon: 'success',
+                            icon: 'info',
+                            confirmButtonColor: "#005eb8",
                             confirmButtonText: 'Okay',
+                            confirmButtonColor: "#005eb8",
                             allowOutsideClick: false,  // Prevent clicking outside to close
                             allowEscapeKey: false
                         });
