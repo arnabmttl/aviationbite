@@ -30,7 +30,7 @@
                     @auth
                         @if (auth()->user()->getFirstUserCourseByCourseId($course->id))
                             <a href="{{ route('practice.test.create', $course->slug) }}">
-                                <button class="btn btn-dark btnLarge">Practice</button>
+                                <button class="btn btn-theme btnLarge">Practice</button>
                             </a>
                         @else
                             @if ($course->special_price != $course->price)
@@ -39,7 +39,7 @@
                                 <p class="title price">₹ {{ $course->price }}</p>
                             @endif
                             <a href="{{ route('order.checkout', encrypt($course->id)) }}">
-                                <button class="btn btn-dark btnLarge">Enroll Now</button>
+                                <button class="btn btn-theme btnLarge">Enroll Now</button>
                             </a>
                         @endif
                     @else
@@ -49,7 +49,7 @@
                             <p class="title price">₹ {{ $course->price }}</p>
                         @endif
                         <a data-bs-toggle="modal" data-bs-target="#loginModal">
-                            <button class="btn btn-dark btnLarge">Enroll Now</button>
+                            <button class="btn btn-theme btnLarge">Enroll Now</button>
                         </a>
                     @endauth
                     </div>
@@ -73,19 +73,32 @@
                         </div>
                     @else
                         <div class="icon">
-                            <img src="{{ asset('frontend/images/logo.png') }}" alt="icon">
+                            <img src="{{ asset('frontend/images/list_icon.png') }}" alt="icon">
                         </div>
                     @endif
                         <p class="title">{{ $course->number_of_tests }} Test Included</p>
 
                         @auth
-                            @if (auth()->user()->getFirstUserCourseByCourseId($course->id))
-                                <a href="{{ route('take.test.create', $course->slug) }}" onclick="return confirm('Are you sure want to start the test?');">
+                            
+                            @if ($course->number_of_tests > count(auth()->user()->take_test_course($course->id)))
+                                @if (auth()->user()->getFirstUserCourseByCourseId($course->id))
+                                    <a href="{{ route('take.test.create', $course->slug) }}" onclick="return confirm('Are you sure want to start the test?');">
+                                        <button class="btn">Take Test</button>
+                                    </a>   
+                                    
+                                @else
+                                <a href="javascript:void(0)" onclick="testValidityExpired()">
                                     <button class="btn">Take Test</button>
                                 </a>
+                                @endif    
+                            
                             @else
-                                
+                                <a href="javascript:void(0)" onclick="testQuotaExpired()">
+                                    <button class="btn">Take Test</button>
+                                </a> 
                             @endif
+
+                            
                         @else
                             <a data-bs-toggle="modal" data-bs-target="#loginModal">
                                 <button class="btn btn-dark btnLarge">Take Test</button>
@@ -103,7 +116,7 @@
         <div class="head">
             <p class="title dark">Course Content</p>
             <p class="desc">
-                <span>{{ $course->chapters->count() }} Sections</span>
+                <span>{{ $course->chapters->count() }} Chapters</span>
             @if ($course->test)
                 <span class="dot"></span>
                 <span>{{ $course->test->chapters->sum('number_of_questions') }} Questions</span>
@@ -164,5 +177,13 @@
 	            }
 	        });
 	    }
+
+        function testQuotaExpired(){
+            toastr.info('You have exceeded your total test quota');
+        }
+
+        function testValidityExpired(){
+            toastr.info('Test Validity Over. Enroll Now Again');
+        }
     </script>
 @endsection

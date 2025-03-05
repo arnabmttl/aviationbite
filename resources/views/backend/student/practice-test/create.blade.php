@@ -103,7 +103,7 @@
                                 </div>
 
                                 <!-- Difficulty Level -->
-                                <div class="col-6 form-label-group pt-5">
+                                {{-- <div class="col-6 form-label-group pt-5">
                                     {!! Form::label('difficulty_level_id', 'Difficulty Level') !!}
                                     {!!
                                         Form::select(
@@ -125,7 +125,7 @@
                                     @error('difficulty_level_id')
                                         <x-validation-error-message :message="$message" />
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <!-- Question Type -->
                                 <div class="col-6 form-label-group pt-5">

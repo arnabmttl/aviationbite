@@ -1079,6 +1079,10 @@ ul.tabsSlider {
     height: 60px;
     font-size: 18px;
 }
+.btn.btn-theme {
+    background: var(--primaryColor);
+    color: #fff;
+}
 
 .testCard {
     text-align: center;
@@ -1092,7 +1096,7 @@ ul.tabsSlider {
 }
 
 .testCard .icon img {
-    width: 100%;
+    width: auto;
 }
 
 .testCard .title {
@@ -2823,11 +2827,12 @@ label[for="remember"] {
 }
 
 .newsletter input {
-    height: 50px;
+    height: 44px;
     padding: 8px 12px;
     border: 0;
-    border-radius: 4px;
+    border-radius: 4px 0 0 4px;
     background: rgba(255, 255, 255, .3);
+    width: calc(100% - 105px);
 }
 .newsletter input:focus {
     outline: none;
@@ -2845,10 +2850,11 @@ label[for="remember"] {
     color: #fff;
 }
 .newsletter button {
-    background-color: #FFFFFF;
-    height: 50px;
+    background-color: #ffc107;
+    height: 44px;
     border: 0;
     color: #000 !important;
+    border-radius: 0 4px 4px 0;
 }
 
 .head.mb-5 {

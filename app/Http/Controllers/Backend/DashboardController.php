@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Session;
 
 // Models
 use App\Models\Newsletter;
+use App\Models\User;
+use App\Models\Course;
+use App\Models\Order;
 
 class DashboardController extends Controller
 {
@@ -53,10 +56,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
-    	if($roleLabel = $this->authService->getRoleLabelOfCurrentlyLoggedInUser())
-    		return view('backend.'.$roleLabel.'.index');
-    	else
-    		abort(500);
+    	if($roleLabel = $this->authService->getRoleLabelOfCurrentlyLoggedInUser()){
+            $totalUsers = User::whereIn('role_id', [2,3])->count();
+            $totalCourses = Course::count();
+            $totalOrders = Order::count();
+
+            $latestOrders = Order::orderBy('id','desc')->limit(5)->get();
+            $latestUsers = User::whereIn('role_id', [2,3])->orderBy('id','desc')->limit(5)->get();
+            
+            return view('backend.'.$roleLabel.'.index', compact('totalUsers','totalCourses','totalOrders','latestOrders','latestUsers'));
+        }else{
+            abort(500);
+        }
+    		
     }
 
     /**

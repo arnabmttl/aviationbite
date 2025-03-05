@@ -472,8 +472,10 @@ class APIController extends Controller
     public function report_comment(Request $request)
     {
         $id = $request->id;
+        $reported_by = $request->reported_by;
         Comment::where('id', $id)->update([
-            'is_reported' => 1
+            'is_reported' => 1,
+            'reported_by' => $reported_by
         ]);
         $data = array('status' => true);
         return response()->json($data, 200);

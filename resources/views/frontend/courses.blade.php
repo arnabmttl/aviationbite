@@ -96,6 +96,7 @@ section.about.testSeries.mt-5 {
             <div class="popCoursesContent popCoursesSlider  owl-carousel owl-theme">
             @foreach ($type->courses as $course)
                 <div class="item">
+                    <a href="{{ route('single.course', $course->slug) }}">
                     <div class="coursesCard">
                         <p class="title">{{ $course->name }}</p>
                         <p>
@@ -110,9 +111,10 @@ section.about.testSeries.mt-5 {
                         @else
                             <button class="btn">₹ {{ $course->price }}</button>
                         @endif
-                            <a href="{{ route('single.course', $course->slug) }}">Course</a>
+                            <span>View Course</span>
                         </div>
                     </div>
+                    </a>
                 </div>
             @endforeach
             </div>
@@ -133,75 +135,116 @@ section.about.testSeries.mt-5 {
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
-                            How can I access AVIATIONbite's online pilot training service?
+                            What is Aviationbite.com?
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="">
                         <div class="accordion-body">
-                            To access our online pilot training service, simply visit our website and create an account. Once you have registered, you can log in and access all of our course materials.
+                            Aviationbite.com is an online platform designed to assist aspiring airline transport pilots (ATPL) in their exam preparation. It offers an extensive range of practice questions and study materials tailored to help candidates effectively prepare for the ATPL exams and Aviationbite.com also offers a dedicated forum where users can engage in aviation-related discussions.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
-                            What is included in AVIATIONbite's online pilot training service?
+                            Are the practice questions on Aviationbite.com similar to the actual ATPL exams?
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="">
                         <div class="accordion-body">
-                            Our online pilot training service includes a comprehensive test series designed to prepare you for all aspects of the DGCA India Exam. We also provide personalized learning experiences, extensive practice questions, and a supportive learning environment.
+                            Yes, the questions on Aviationbite.com are designed to closely replicate the format and difficulty level of the real ATPL exams. They help users become familiar with the types of questions they will face and provide a solid understanding of the subjects covered.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-                            How much does AVIATIONbite's online pilot training service cost?
+                            Can I track my progress on Aviationbite.com?
                         </button>
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            The cost of our online pilot training service varies depending on the specific course package you choose. Please visit our website for more information on pricing.
+                            Yes, Aviationbite.com provides tools to track your performance. You can monitor your scores, pinpoint areas that need improvement, and evaluate your readiness for the exams.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
-                            Are the practice questions in AVIATIONbite's test series updated regularly?
+                            Are the study materials regularly updated?
                         </button>
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Yes, we are committed to providing up-to-date practice questions to ensure that our students are fully prepared for the DGCA India Exam.
+                            Yes, Aviationbite.com ensures that its study resources are up-to-date. The question bank and materials are consistently reviewed and updated to reflect any changes in aviation regulations or exam guidelines.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFive">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
-                            How long do I have access to AVIATIONbite's online pilot training service?
+                            Can I access Aviationbite.com offline?
                         </button>
                     </h2>
                     <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Depending on the specific course package you choose, you may have access to our online pilot training service for a set period of time. Please refer to our website for more information on course durations.
+                            Aviationbite.com is primarily an online platform requiring an internet connection. However, some features, such as downloading study materials for offline use, may be available. Refer to the platform’s instructions for more details on offline capabilities.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingSix">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
-                            What if I have questions or need additional support while using AVIATIONbite's online pilot training service?
+                            Can I modify or cancel my subscription?
                         </button>
                     </h2>
                     <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Our platform includes a forum where you can ask questions and receive support from our experienced instructors and other students. Additionally, you can contact our customer support team for assistance at any time.
+                            Aviationbite.com has a no-refund policy for purchased subscriptions. Modifications to subscriptions may only be possible under specific circumstances, so it is advised to contact their support team for further assistance with your subscription-related queries.
                         </div>
                     </div>
                 </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                            What payment methods are available for subscriptions?
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Aviationbite.com accepts various payment methods, including major credit and debit cards, as well as online payment platforms. The exact payment options will be outlined during the subscription process.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                            Is Aviationbite.com affiliated with any official aviation regulatory bodies?
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Aviationbite.com operates independently and is not directly affiliated with official aviation regulatory authorities. However, it ensures that its study materials are aligned with the standards and requirements set by relevant aviation agencies.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                            Can I engage with other users through a community or forum?
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Aviationbite.com also offers a dedicated forum where users can engage in aviation-related discussions. This forum is a great space to connect with fellow pilots, share insights, ask questions, and discuss various topics related to aviation. Whether you're looking for study tips or just want to dive into an aviation conversation, the forum provides a valuable platform for collaboration and learning.
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </section>

@@ -38,8 +38,10 @@
 				<div class="links">
 					<span>Subscribe to our newsletter</span>
 				</div>
+				<div class="d-flex mt-2">
 				<input type="email" required autocomplete="off" v-model="email_id" placeholder="Email address" >
 				<button class="btn" type="submit">Subscribe</button>
+				</div>
 			</form>
 		</div>
 	</div>

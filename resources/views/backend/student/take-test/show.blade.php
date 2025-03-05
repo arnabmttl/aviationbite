@@ -326,6 +326,10 @@
                 event.preventDefault();  // Disable the Shift key
                 alert('Shift key is disabled!');
             }
+            if (event.key === 'PrintScreen' || event.key === 'F12' || (event.ctrlKey && event.key === 'p') ) {
+                event.preventDefault();
+                alert('Please give the test in proper manner!');
+            }
         });
 
         // Disable right-click (context menu)

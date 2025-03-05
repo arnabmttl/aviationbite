@@ -6,15 +6,21 @@
             <div>
                 <div>
                 @auth
+                    @if ( count(auth()->user()->unreadNotifications) > 0 )
+                        
+                    
                     <ul>
-                    @foreach (auth()->user()->unreadNotifications as $index => $notification)
-                        <li>
-                            <a class="desc" href="{{ route('notification.destroy', [auth()->user()->username, $notification->id]) }}">
-                                <span class="">{{ $notification->data['message'] }}</span>
-                            </a>
-                        </li>
-                    @endforeach
+                        @foreach (auth()->user()->unreadNotifications as $index => $notification)
+                            <li>
+                                <a class="desc" href="{{ route('notification.destroy', [auth()->user()->username, $notification->id]) }}">
+                                    <span class="">{{ $notification->data['message'] }}</span>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+                    @else
+                        <span>No new notification !!!</span>
+                    @endif
                 @endauth
                 </div>
             </div>

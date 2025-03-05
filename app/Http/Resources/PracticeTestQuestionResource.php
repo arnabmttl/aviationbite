@@ -33,7 +33,8 @@ class PracticeTestQuestionResource extends JsonResource
             'comments' => Comment::where('question_id',  $this->question_id)->orderBy('id','desc')->get(),
             'notes' => Note::where('question_id',  $this->question_id)->where('user_id', \Auth::user()->id)->orderBy('id', 'desc')->get(),
             'question_master_comment_count' => Question::where('id', $this->question_id)->whereNotNull('practice_test_comment')->count(),
-            'count_comments' => Comment::where('question_id',  $this->question_id)->count()
+            'count_comments' => Comment::where('question_id',  $this->question_id)->count(),
+            'count_notes' => Note::where('question_id',  $this->question_id)->where('user_id', \Auth::user()->id)->count()
         ];
     }
 }

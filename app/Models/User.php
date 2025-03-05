@@ -236,4 +236,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(TakeTest::class, 'user_id', 'id');
     }
+
+    public function take_test_course($courseId){
+        
+        $data = TakeTest::whereUserId($this->id)->whereCourseId($courseId)->get();
+
+        return $data;
+    }
 }

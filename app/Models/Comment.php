@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Question;
+use App\Models\User;
 
 class Comment extends Model
 {
@@ -29,14 +30,24 @@ class Comment extends Model
      * Relationships
      */
 
+    // /**
+    //  * Get the comment's user.
+    //  *
+    //  * @return \App\Models\User
+    //  */
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\Models\User');
+    // }
+
     /**
-     * Get the comment's user.
+     * Get the user that owns the Comment
      *
-     * @return \App\Models\User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -47,5 +58,15 @@ class Comment extends Model
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class, 'question_id', 'id');
+    }
+
+    /**
+     * Get the reported that owns the Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function reported(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reported_by', 'id');
     }
 }

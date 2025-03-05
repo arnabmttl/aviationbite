@@ -12,8 +12,10 @@
         <div class="item">
             <li data-tab-id='tab5'><i class="fas fa-pencil-alt"></i> Explanation</li>
         </div>
-        <div class="item">
+        <div class="item notification">
             <li data-tab-id='tab7'><i class="fas fa-pencil-alt"></i> My Note</li>
+
+            <span  v-if="(selectedQuestion?.count_notes) > 0" v-text="(selectedQuestion?.count_notes)"></span>
         </div>
         <div class="item">
             <li data-tab-id='tab6'><i class="far fa-compass"></i> FLT. comp</li>
@@ -24,7 +26,7 @@
     <div class='content-section'>
         <div id='tab1' class='content active'>
             <p style="color: #000; font-weight: 500;">@{{ selectedQuestion?.question?.title }}</p>
-            <p v-if="selectedQuestion?.question?.description" style="color: #000; font-weight: 500;">@{{ selectedQuestion?.question?.description }}</p>
+            <div v-html="selectedQuestion?.question?.description"></div>
             <div class="forumCardCont">
                 <div v-if="selectedQuestion?.question?.image" class="col-12">
                     <img :src="selectedQuestion.question.image">
@@ -76,11 +78,28 @@
                                     <p> <span v-text="moment(comment.created_at).fromNow()"></span> by   <a href= "#"><strong>@{{ comment.user.username }}</strong> </a></p>
                                 </div>
                                 <div class="right" id="reportDiv" v-if="(comment.user_id != {{Auth::user()->id}})" >
-                                    
-                                    <button v-if="comment.is_reported == 0" @click="reportComment(comment.id,indexOfComment)" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
-  
+
+                                    <div v-if="comment.is_reported == 0">
+                                        <button  @click="reportComment(comment.id,indexOfComment)" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
+
+                                        <!-- Button to open the modal -->
+                                        {{-- <button @click="openModal" class="btn btn-sm bg-info "><i class="fas fa-exclamation-triangle"></i>Report</button>
+
+                                        <!-- Modal -->
+                                        <div v-if="isModalVisible" class="modal">
+                                        <div class="modal-content">
+                                            <span class="close" @click="closeModal">&times;</span>
+                                            <h2>Modal Title</h2>
+                                            <p>This is a modal window!</p>
+                                        </div>
+                                        </div> --}}
+
+                                    </div>
                                     <!-- Span is shown if the button is hidden or comment is reported -->
-                                    <span v-else class="badge bg-warning">Reported</span>
+                                    <div v-else>
+                                        <span class="badge bg-warning">Reported</span>
+                                    </div>
+                                    
                                 </div>
                                 <div class="right" v-else>
                                     <button @click="deleteMyComment(comment.id,indexOfComment)" class="btn btn-sm bg-danger "><i class="fas fa-bin"></i>Delete</button>
@@ -134,3 +153,33 @@
         </div>
     </div>
 </div>
+
+<style scoped>
+    /* .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+    }
+    
+    .close-btn {
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    } */
+</style>

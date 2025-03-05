@@ -186,6 +186,8 @@
                 noteOnQuestion: null,
 
                 totalCommentsOnQuestion: 0,
+
+                // isModalVisible: false, // Controls the visibility of the modal
             },
 
             filters: {
@@ -230,6 +232,14 @@
                     this.timeForQuestion = parseInt(this.timeForQuestion) + 1;
                 },
 
+                // openModal() {
+                //     // alert('hi')
+                //     this.isModalVisible = true; // Show the modal
+                // },
+                // closeModal() {
+                //     this.isModalVisible = false; // Hide the modal
+                // },
+
                 /**
                  * Get the questions by the practice test id.
                  */
@@ -247,6 +257,7 @@
                                 this.selectedQuestion = this.questions[0]
                                 this.selectedQuestion.status = 1
                             }
+                            
                         }
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in fetching the questions as the moment.'
@@ -272,7 +283,8 @@
                             axios.post(
                                 "{{ route('report-comment') }}", 
                             {
-                                'id': id                        
+                                'id': id  ,
+                                'reported_by': "{{ Auth::user()->id }}"                      
                             }).then((response) => {
                                 console.log(response)
                                 if (response.data.status) {
@@ -521,8 +533,14 @@
                         'question_id': this.selectedQuestion.question_pk_id,
                         'user_id': this.userId,
                     }).then((response) => {     
-                        if (response.data.result)                    
+                        if (response.data.result) {
                             this.selectedQuestion.notes = response.data.notes;
+                            this.selectedQuestion.count_notes = response.data.notes.length;
+
+                            
+                        }                 
+                            
+
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the notes at the moment.'
                         this.message.success = ''
@@ -556,6 +574,8 @@
                                 allowEscapeKey: false, 
                                 timer: 3000 // The alert will auto-close after 3 seconds
                             });
+
+                            this.selectedQuestion.count_notes = response.data.notes.length;
                         }
                     }).catch((error) => {
                         this.message.failure = 'There is some problem in getting the comments at the moment.'

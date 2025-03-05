@@ -37,6 +37,7 @@
                                     <th>#</th>
                                     <th>Question</th>
                                     <th>Comment</th>
+                                    <th>Reported By</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,9 @@
                                     </td>
                                     <td>
                                         {{ $item->comment }}
+                                    </td>
+                                    <td>
+                                        {{ $item->reported->username }}
                                     </td>
                                     <td>
                                         <div class="dropdown">
